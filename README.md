@@ -1,6 +1,6 @@
 # Quickstart minimal samples for monday-code
 
-This repo contains a bare bones structure for the server technologies that are supported in monday-code. Their sole goal is to demonstrate a "Hello world" setup that enables to deploy each quick-start setup to monday code
+This repo contains a bare bones structure for the server technologies that are supported in monday-code. Their sole purpose is to demonstrate a "Hello world" setup that enables to deploy each quick-start setup to monday code
 
 ## How to
 
