@@ -4,6 +4,7 @@ from errors import MondayCodeAPIError
 
 
 def handle_general_http_exception(exception):
+    print(f'Error: {exception}')
     response = jsonify({
         'error': 'HTTPException',
         'message': str(exception)
@@ -12,8 +13,8 @@ def handle_general_http_exception(exception):
     return response
 
 
-def handle_monday_code_api_error(error: MondayCodeAPIError):
-    print(f'Error: {error.api_type}, {error}')
+def handle_monday_code_api_error(exception: MondayCodeAPIError):
+    print(f'Error: {exception.api_type}, {exception}')
     response = jsonify({
         'error': 'Error in processing request',
     })
@@ -21,10 +22,10 @@ def handle_monday_code_api_error(error: MondayCodeAPIError):
     return response
 
 
-def handle_bad_request_error(error):
+def handle_bad_request_error(exception):
     response = jsonify({
         'error': 'Bad Request',
-        'message': str(error)
+        'message': str(exception)
     })
     response.status_code = 400
     return response
