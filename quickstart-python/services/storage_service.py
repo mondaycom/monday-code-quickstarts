@@ -1,5 +1,3 @@
-import logging
-
 import monday_code
 from monday_code import ApiException
 from monday_code.exceptions import NotFoundException
@@ -11,7 +9,6 @@ from errors import MondayCodeAPIError, APIErrorType
 class SecureStorage:
     def __init__(self, monday_code_configuration):
         self.monday_code_configuration = monday_code_configuration
-        self.logger = logging.getLogger(__name__)
 
     def _api_call(self, method, *args, **kwargs):
         with monday_code.ApiClient(self.monday_code_configuration) as api_client:
@@ -29,7 +26,6 @@ class SecureStorage:
 
     def get(self, key: str) -> str:
         api_response = self._api_call('get_secure_storage', key)
-        self.logger.info(f"The response of SecureStorageApi->get_secure_storage: {api_response}")
         return api_response.value if api_response else None
 
     def put(self, key: str, value: str) -> None:
