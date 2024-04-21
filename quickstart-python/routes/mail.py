@@ -1,7 +1,6 @@
 from flask import Blueprint, request, jsonify
 
-from services.auth_service import validate_jwt_token
-from services.queue_service import publish_message
+from services import publish_message, validate_jwt_token
 
 mail_bp = Blueprint('mail', __name__)
 

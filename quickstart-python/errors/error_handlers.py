@@ -1,6 +1,6 @@
 from flask import jsonify
 
-from errors.api_errors import MondayCodeAPIError
+from errors import MondayCodeAPIError
 
 
 def handle_general_http_exception(exception):
