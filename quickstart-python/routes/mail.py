@@ -13,6 +13,6 @@ def send_mail():
     token = request.cookies.get('token')
     if not token or not validate_jwt_token(token):
         return jsonify({'error': 'Invalid or missing token'}), 401
-
-    publish_message(request.get_json())
+    data = request.get_json()
+    publish_message({'method': 'send_mail', 'data': data, 'token': token})
     return 'Received', 200
