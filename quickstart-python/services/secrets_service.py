@@ -2,7 +2,6 @@ import monday_code
 from monday_code import ApiException
 from urllib3.exceptions import RequestError
 
-from consts import MondayConsts
 from errors import APIErrorType, MondayCodeAPIError
 from handlers import mcode_configuration
 
@@ -15,6 +14,3 @@ def get_secret(key: str):
         except (ApiException, RequestError) as e:
             raise MondayCodeAPIError(f"Exception when calling SecretApi->get_secret: {e}", APIErrorType.SECRETS)
 
-
-def get_jwt_secret():
-    return get_secret(MondayConsts.JWT_SECRET_KEY)

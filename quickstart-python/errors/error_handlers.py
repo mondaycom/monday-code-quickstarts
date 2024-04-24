@@ -1,9 +1,10 @@
 from flask import jsonify
+from werkzeug.exceptions import HTTPException
 
-from errors import MondayCodeAPIError
+from errors import MondayCodeAPIError, BaseError
 
 
-def handle_general_http_exception(exception):
+def handle_general_http_exception(exception: HTTPException):
     print(f'Error: {exception}')
     response = jsonify({
         'error': 'HTTPException',
@@ -22,10 +23,9 @@ def handle_monday_code_api_error(exception: MondayCodeAPIError):
     return response
 
 
-def handle_bad_request_error(exception):
+def handle_base_error(exception: BaseError):
     response = jsonify({
-        'error': 'Bad Request',
-        'message': str(exception)
+        'error': exception.message,
     })
-    response.status_code = 400
+    response.status_code = exception.status_code
     return response
