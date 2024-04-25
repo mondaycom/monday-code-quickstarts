@@ -16,10 +16,6 @@ class StorageService:
     def __init__(self, monday_access_token: str):
         self.monday_access_token = monday_access_token
 
-    @with_monday_api(api_type, 'delete_by_key_from_storage')
-    def delete(self, key: str, api_instance: StorageApi = None) -> None:
-        api_instance.delete_by_key_from_storage(str(key), self.monday_access_token)
-
     @with_monday_api(api_type, 'get_by_key_from_storage')
     def get(self, key: str, api_instance: StorageApi = None) -> JSONType:
         api_response = api_instance.get_by_key_from_storage(str(key), self.monday_access_token)
@@ -34,3 +30,7 @@ class StorageService:
         api_instance.upsert_by_key_from_storage(key=str(key), x_monday_access_token=self.monday_access_token,
                                                 shared=shared, previous_version=previous_version,
                                                 storage_data_contract=storage_data_contract)
+
+    @with_monday_api(api_type, 'delete_by_key_from_storage')
+    def delete(self, key: str, api_instance: StorageApi = None) -> None:
+        api_instance.delete_by_key_from_storage(str(key), self.monday_access_token)
