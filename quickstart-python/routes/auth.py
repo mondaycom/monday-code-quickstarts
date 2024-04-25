@@ -4,8 +4,7 @@ from flask import request, Blueprint, redirect
 
 from consts import SecretKeys
 from middlewares import auth_required
-from services import SecureStorage, get_secret
-from services import get_monday_token
+from services import SecureStorage, SecretService, JWTService
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -26,8 +25,8 @@ def authorize():
 
     SecureStorage.put(user_id, {'back_to_url': back_to_url})
 
-    params = {'client_id': get_secret(SecretKeys.MONDAY_OAUTH_CLIENT_ID), 'state': user_id}
-    redirect_url = f"{get_secret(SecretKeys.MONDAY_OAUTH_BASE_PATH)}?{urlencode(params)}"
+    params = {'client_id': SecretService.get_secret(SecretKeys.MONDAY_OAUTH_CLIENT_ID), 'state': user_id}
+    redirect_url = f"{SecretService.get_secret(SecretKeys.MONDAY_OAUTH_BASE_PATH)}?{urlencode(params)}"
     return redirect(redirect_url)
 
 
@@ -40,7 +39,7 @@ def monday_callback():
     code = request.args.get('code')
     user_id = request.args.get('state')
 
-    monday_token = get_monday_token(code)
+    monday_token = JWTService.get_monday_token(code)
 
     back_to_url = SecureStorage.get(user_id).get('back_to_url')
     SecureStorage.put(user_id, {'monday_token': monday_token})
