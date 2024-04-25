@@ -13,13 +13,13 @@ def create_jwt_token(payload: dict):
     return jwt.encode(payload, get_secret(SecretKeys.MONDAY_SIGNING_SECRET), algorithm='HS256')
 
 
-def decode_monday_jwt(token: str):
+def decode_monday_jwt(token: str, verify=True):
     """
     Validate a JWT token.
     """
     try:
         return jwt.decode(token, get_secret(SecretKeys.MONDAY_SIGNING_SECRET), options={"verify_aud": False},
-                          algorithms=['HS256'])
+                          verify=verify, algorithms=['HS256'])
     except jwt.ExpiredSignatureError:
         raise GenericUnauthorizedError('Token has expired')
     except jwt.InvalidSignatureError:

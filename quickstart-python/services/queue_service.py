@@ -1,23 +1,21 @@
 import json
 
-from monday_code import ApiException, ApiClient, QueueApi, PublishMessageParams
-from urllib3.exceptions import RequestError
+from monday_code import PublishMessageParams
 
-from errors import APIErrorType, MondayCodeAPIError
-from handlers import mcode_configuration
-
-
-def publish_message(message: dict) -> None:
-    with ApiClient(mcode_configuration) as api_client:
-        api_instance = QueueApi(api_client)
-        try:
-            publish_message_params = PublishMessageParams(message=json.dumps(message))
-            api_response = api_instance.publish_message(publish_message_params)
-            print(f"The response of QueueApi->publish_message:\n{api_response}")
-        except (ApiException, RequestError) as e:
-            raise MondayCodeAPIError(f"Exception when calling QueueApi->publish_message: {e}", APIErrorType.QUEUE)
+from services import with_monday_api
+from models import APITypes
 
 
-def read_queue_message(message: dict) -> None:
+@with_monday_api(APITypes.QUEUE, "publish_message")
+def publish_message(api_instance, message: dict) -> None:
+    publish_message_params = PublishMessageParams(message=json.dumps(message))
+    api_response = api_instance.publish_message(publish_message_params)
+    print(f"The response of QueueApi->publish_message:\n{api_response}")
+
+
+def parse_queue_message(message: dict) -> None:
+    """
+    This function will parse the message from the queue and do some long-running process according to it's content
+    """
     # Some long-running process
     print(f"Received message: {message}")
