@@ -36,4 +36,4 @@ class SecureStorage:
     def put(self, key: str, value: JSONType) -> None:
         secure_storage_data_contract = monday_code.SecureStorageDataContract(value=json.dumps(value))
 
-        self._api_call('put_secure_storage', key, secure_storage_data_contract)
+        self._api_call('put_secure_storage', str(key), secure_storage_data_contract)

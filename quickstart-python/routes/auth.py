@@ -23,12 +23,13 @@ def authorize():
     storage = SecureStorage(mcode_configuration)
 
     connection = storage.get(user_id)
-    if connection and connection['monday_token']:
+    if connection and not connection['monday_token']:
         return redirect(back_to_url)
 
-    base_url = 'https://auth.monday.com/oauth2/authorize'
+    storage.put(user_id, {'back_to_url': back_to_url})
+
     params = {'client_id': get_secret(SecretKeys.MONDAY_OAUTH_CLIENT_ID), 'state': user_id}
-    redirect_url = f"{base_url}?{urlencode(params)}&redirect_uri={back_to_url}"
+    redirect_url = f"{get_secret(SecretKeys.MONDAY_OAUTH_BASE_PATH)}?{urlencode(params)}"
     return redirect(redirect_url)
 
 
@@ -40,9 +41,10 @@ def monday_callback():
     """
     code = request.args.get('code')
     user_id = request.args.get('state')
-    back_to_url = request.args.get['redirect_uri']
+    storage = SecureStorage(mcode_configuration)
+
     monday_token = get_monday_token(code)
 
-    storage = SecureStorage(mcode_configuration)
+    back_to_url = storage.get(user_id).get('back_to_url')
     storage.put(user_id, {'monday_token': monday_token})
     return redirect(back_to_url)
