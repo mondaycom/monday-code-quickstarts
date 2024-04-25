@@ -1,9 +1,8 @@
 from functools import wraps
 
-import jwt
-from flask import request, jsonify
+from flask import request
 
-from services import decode_monday_jwt
+from services import JWTService
 
 
 def auth_required(f):
@@ -18,7 +17,7 @@ def auth_required(f):
         authorization = request.headers.get('Authorization', None)
         if not authorization and request.args.get('token'):
             authorization = request.args.get('token')
-        request.session = decode_monday_jwt(authorization)
+        request.session = JWTService.decode_monday_jwt(authorization)
         return f(*args, **kwargs)
 
     return authentication_middleware
