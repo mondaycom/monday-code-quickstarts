@@ -2,7 +2,7 @@ import json
 
 from monday_code import PublishMessageParams, QueueApi
 
-from services import with_monday_api, StorageService
+from services import with_monday_api, StorageService, MailService
 from models import APITypes
 
 
@@ -27,5 +27,5 @@ class QueueService:
             monday_access_token = message.get('token')
             mail_address = StorageService(monday_access_token).get('mail_address')
             content = message.get('content')
-            # send_mail(mail_address, content) # Unimplemented function
+            MailService.send_mail(mail_address, content)  # Unimplemented example function
         print(f"Received message: {message}")
