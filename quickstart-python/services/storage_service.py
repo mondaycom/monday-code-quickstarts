@@ -1,33 +1,30 @@
-import monday_code
-from monday_code import ApiException
-from monday_code.exceptions import NotFoundException
-from urllib3.exceptions import RequestError
+import json
+from typing import Any, Dict, List, Union
 
-from errors import MondayCodeAPIError, APIErrorType
+import monday_code
+
+from services import with_monday_api
+from models import APITypes
+
+JSONType = Union[Dict[str, Any], List[Any], str, int, float, bool, None]
 
 
 class SecureStorage:
-    def __init__(self, monday_code_configuration):
-        self.monday_code_configuration = monday_code_configuration
+    api_type = APITypes.SECURE_STORAGE
 
-    def _api_call(self, method, *args, **kwargs):
-        with monday_code.ApiClient(self.monday_code_configuration) as api_client:
-            api_instance = monday_code.SecureStorageApi(api_client)
-            try:
-                return getattr(api_instance, method)(*args, **kwargs)
-            except NotFoundException:
-                return None
-            except (ApiException, RequestError) as e:
-                raise MondayCodeAPIError(f"Exception when calling SecureStorageApi->{method}: {e}",
-                                         APIErrorType.SECURE_STORAGE)
+    @staticmethod
+    @with_monday_api(api_type, 'delete_secure_storage')
+    def delete(api_instance, key: str) -> None:
+        api_instance.delete_secure_storage(str(key))
 
-    def delete(self, key: str) -> None:
-        self._api_call('delete_secure_storage', key)
+    @staticmethod
+    @with_monday_api(api_type, 'get_secure_storage')
+    def get(api_instance, key: str) -> JSONType:
+        api_response = api_instance.get_secure_storage(str(key))
+        return json.loads(api_response.value) if api_response else None
 
-    def get(self, key: str) -> str:
-        api_response = self._api_call('get_secure_storage', key)
-        return api_response.value if api_response else None
-
-    def put(self, key: str, value: str) -> None:
-        secure_storage_data_contract = monday_code.SecureStorageDataContract(value=value)
-        self._api_call('put_secure_storage', key, secure_storage_data_contract)
+    @staticmethod
+    @with_monday_api(api_type, 'put_secure_storage')
+    def put(api_instance, key: str, value: JSONType) -> None:
+        secure_storage_data_contract = monday_code.SecureStorageDataContract(value=json.dumps(value))
+        api_instance.put_secure_storage(str(key), secure_storage_data_contract)
