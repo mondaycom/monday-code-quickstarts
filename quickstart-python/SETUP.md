@@ -13,6 +13,12 @@ To set up the app in Monday, follow these steps:
    expose your local server to the internet). This step is temporary and will be replaced with the URL of your app in
    Monday Code.
 
+### Setting authorization URL
+
+1. Under `Feature Details` in your integration feature scroll down to the `Authorization URL` section.
+2. Tick the `Enable Authorization URL` checkbox.
+3. Enter the URL of your app that will start the OAuth process, in our case, `/auth/`.
+
 ### Configure OAuth in Monday
 
 1. Press `OAuth` in the `General` section of the left menu.
