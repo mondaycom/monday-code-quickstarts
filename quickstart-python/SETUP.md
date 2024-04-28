@@ -48,4 +48,31 @@ Congrats, you have successfully set up the app in Monday! 🎉
 
 That's it! You have successfully deployed the app to Monday Code. 🚀
 
+### Creating a Custom Action
+
+1. Choose you integration Feature Under the `Feature` tab, under `Workflow Bloacks` create a new action.
+2. Give the action a name, for this example, let's call it `Send a mail`.
+3. Of course, you can
+   add [Input Fields](https://developer.monday.com/apps/docs/custom-actions#configure-action-input-fields) based on your
+   requirements.
+4. Define a [Sentence](https://developer.monday.com/apps/docs/custom-actions#define-action-sentence) for the action, for
+   example, `Send an email to {email}`.
+5. Finally, Provide the relative path to the action in the API Configuration section, in our case- `/mail/send`.
+
+### Creating a Recipe
+
+1. Choose you integration Feature Under the `Feature` tab, under `Recipes` create a new recipe.
+2. Choose a trigger, for this example, let's choose `When status changes`.
+3. Choose the action you created in the previous step, `Send a mail`.
+
+That's it! You have successfully created a recipe in Monday!
+
+### Using the recipe
+
+1. Go to a board in Monday and create a new automation.
+2. Choose the recipe you created in the previous step.
+3. Configure the recipe based on your requirements, in this case, you need to choose a status column.
+4. Test the recipe by changing the status of an item.
+5. Check the logs in the Monday Code console to see the recipe in action.
+
 ### Happy building! 🎉

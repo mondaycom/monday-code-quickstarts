@@ -6,7 +6,7 @@ from services import QueueService, StorageService, SecureStorage
 mail_bp = Blueprint('mail', __name__)
 
 
-@mail_bp.route('/', methods=['POST'])
+@mail_bp.route('/send', methods=['POST'])
 @monday_request_auth
 def send_mail():
     """
