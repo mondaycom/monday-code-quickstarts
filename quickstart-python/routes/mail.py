@@ -1,13 +1,13 @@
 from flask import Blueprint, request
 
-from middlewares import auth_required
+from middlewares import monday_request_auth
 from services import QueueService, StorageService, SecureStorage
 
 mail_bp = Blueprint('mail', __name__)
 
 
 @mail_bp.route('/', methods=['POST'])
-@auth_required
+@monday_request_auth
 def send_mail():
     """
     Example of a route that receives a POST request and calls the Queue Service to handle the process in the background.
