@@ -21,8 +21,7 @@ class JWTService:
         """
         try:
             return jwt.decode(token, SecretService.get_secret(SecretKeys.MONDAY_SIGNING_SECRET),
-                              options={"verify_aud": False},
-                              verify=verify, algorithms=['HS256'])
+                              options={"verify_aud": False, "verify_signature": verify}, algorithms=['HS256'])
         except jwt.ExpiredSignatureError:
             raise GenericUnauthorizedError('Token has expired')
         except jwt.InvalidSignatureError:

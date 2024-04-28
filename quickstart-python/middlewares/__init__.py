@@ -1,1 +1,1 @@
-from middlewares.auth import auth_required
+from middlewares.auth import monday_request_auth

@@ -3,14 +3,14 @@ from urllib.parse import urlencode
 from flask import request, Blueprint, redirect
 
 from consts import SecretKeys
-from middlewares import auth_required
+from middlewares import monday_request_auth
 from services import SecureStorage, SecretService, JWTService
 
 auth_bp = Blueprint('auth', __name__)
 
 
 @auth_bp.route('/', methods=['GET'])
-@auth_required
+@monday_request_auth
 def authorize():
     """
     Redirects the user to the monday.com OAuth2 authorization page.

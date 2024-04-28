@@ -22,10 +22,11 @@ class QueueService:
         This function will parse the message from the queue to do some long-running process according to it's content
         """
         # Some long-running process, for example, sending an email
-        # TODO: Implement better parsing and handling of the message
+        # todo: Implement better parsing and handling of the message
+        print(f"Received message: {message}")
+        message = json.loads(message.get('content'))
         if message.get('method') == 'send_mail':
-            monday_access_token = message.get('token')
+            monday_access_token = message.get('user_token')
             mail_address = StorageService(monday_access_token).get('mail_address')
             content = message.get('content')
-            MailService.send_mail(mail_address, content)  # Unimplemented example function
-        print(f"Received message: {message}")
+            MailService.send_mail(mail_address, content)  # Unimplemented function for example
