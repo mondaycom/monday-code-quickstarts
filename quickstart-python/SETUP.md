@@ -28,6 +28,15 @@ To set up the app in Monday, follow these steps:
 
 Congrats, you have successfully set up the app in Monday! 🎉
 
+### Deploying the App to Monday Code
+
+1. Go to the `General` tab under monday code, click on `Connect monday code` and follow the instructions on the screen.
+2. Choose you integration Feature Under the `Feature` tab, create a new build and choose monday code as the deployment
+   target.
+3. Reconfigure the OAuth redirect URL with the new URL provided by Monday Code.
+
+That's it! You have successfully deployed the app to Monday Code. 🚀
+
 ### Setting up the Environment Variables
 
 1. For setting environment variables in production after deploying to monday-code-
@@ -44,15 +53,7 @@ Congrats, you have successfully set up the app in Monday! 🎉
            secret. The secret will be injected into process.env of your deployment.
     2. instead, you can set the secrets manually in monday-code by going to the `General` tab under monday code and
        then `Environment Variables` section.
-
-### Deploying the App to Monday Code
-
-1. Go to the `General` tab under monday code, click on `Connect monday code` and follow the instructions on the screen.
-2. Choose you integration Feature Under the `Feature` tab, create a new build and choose monday code as the deployment
-   target.
-3. Reconfigure the OAuth redirect URL with the new URL provided by Monday Code.
-
-That's it! You have successfully deployed the app to Monday Code. 🚀
+2. Set all the needed environment variables for this app, can be found in the `.env.example` file.
 
 ### Creating a Custom Action
 
