@@ -35,40 +35,63 @@ python main.py
 
 The application will start running at `http://0.0.0.0:8080`.
 
+## Features
+
+This app showcases how to use various Monday app functionalities, including:
+
+* Using Monday apps storage
+* Utilizing Monday apps Secrets / Environment variables
+* Using Monday apps Queue
+* Implementing OAuth process
+* Authenticating with JWT (JSON Web Tokens)
+* Creating custom actions and triggers
+* Implementing an integration recipe
+* Deploying the app to Monday code
+
+## Setting up the app in Monday
+
+Follow the instructions listed in the [SETUP.md](SETUP.md) file
+
+## Flow and Usage
+
 ## Services
 
 The project includes the following services:
 
 - `MondayApi`: Handles interactions with the Monday API.
-- `SecretService`: Manages secrets within the application.
 - `JWTService`: Handles JSON Web Token operations.
+- `SecretService`: Manages secrets within the application.
 - `StorageService`: Manages storage operations.
-- `MailService`: Handles mail operations.
 - `QueueService`: Manages queue operations.
 - `SecureStorage`: Handles secure storage operations.
+- `MailService`: Handles mail operations.
 
 ## OAuth Flow
 
-The project uses OAuth 2.0 for authentication. The `JWTService` is responsible for handling the OAuth flow. It generates
-a JWT token after the user is authenticated. This token is then used for subsequent requests to the server.
+The project uses Monday.com OAuth 2.0 for authentication.
 
-Here is an example of how the OAuth flow works:
+This token is then used for subsequent requests to the server.
 
-1. The user sends a request to the `/auth/login` endpoint.
-2. The server redirects the user to the OAuth provider's authorization page.
-3. The user logs in and authorizes the application.
-4. The OAuth provider redirects the user back to the `/auth/callback` endpoint with an authorization code.
-5. The server exchanges the authorization code for an access token.
-6. The server generates a JWT token and sends it to the user.
+[//]: # ()
 
-## Example Functions
+[//]: # (Here is an example of how the OAuth flow works: )
 
-Here are some example functions from the `StorageService`:
+[//]: # ()
 
-- `get(key: str)`: Retrieves a value from storage by its key.
-- `upsert(key: str, value: JSONType, version: str)`: Inserts or updates a value in storage.
-- `delete(key: str)`: Deletes a value from storage by its key.
+[//]: # (1)
 
-## Error Handling
+[//]: # ()
 
-The project includes custom error handlers for `HTTPException`, `MondayCodeAPIError`, and `BaseError`.
+[//]: # ()
+
+[//]: # (1. The user sends a request to the `/auth/login` endpoint.)
+
+[//]: # (2. The server redirects the user to the OAuth provider's authorization page.)
+
+[//]: # (3. The user logs in and authorizes the application.)
+
+[//]: # (4. The OAuth provider redirects the user back to the `/auth/callback` endpoint with an authorization code.)
+
+[//]: # (5. The server exchanges the authorization code for an access token.)
+
+[//]: # (6. The server generates a JWT token and sends it to the user.)
