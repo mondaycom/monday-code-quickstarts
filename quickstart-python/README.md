@@ -1,7 +1,7 @@
 # Monday-Code Python Quickstart
 
-This is a Python project that uses Flask as a web framework. The project is structured around a service-oriented
-architecture, with different services handling different aspects of the application.
+This Python Flask application is designed to exemplify the practical use of the Monday Code platform by integrating various Monday app functionalities.
+It's an essential resource for developers looking to leverage Monday Code features through a Python environment.
 
 ## Getting Started
 
