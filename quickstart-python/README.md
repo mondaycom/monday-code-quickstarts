@@ -84,15 +84,3 @@ Follow the instructions listed in the [SETUP.md](SETUP.md) file
 
 13. The worker queue sends a request to the app to process the action.
 14. The app processes the action and sends an email.
-
-## Services
-
-The project includes the following services:
-
-- `MondayApi`: Handles interactions with the Monday API.
-- `JWTService`: Handles JSON Web Token operations.
-- `SecretService`: Manages secrets within the application.
-- `StorageService`: Manages storage operations.
-- `QueueService`: Manages queue operations.
-- `SecureStorage`: Handles secure storage operations.
-- `MailService`: Handles mail operations.
