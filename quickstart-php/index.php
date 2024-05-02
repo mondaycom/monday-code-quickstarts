@@ -1,9 +1,18 @@
 <?php
 
-$env = getenv();
+$request = $_SERVER['REQUEST_URI'];
 
+switch ($request) {
+    case '':
+        case '/':
+            require __DIR__ . '/demo.php';
+            break;
 
-error_log(print_r($env, TRUE));
+        case '/mndy-queue':
+            require __DIR__ . '/queue.php';
+            break;        
 
-$name = getenv('NAME', true) ?: 'World';
-echo sprintf('Hello from PHP %s!', $name);
+    default:
+        echo '404';
+        http_response_code(404);
+}
