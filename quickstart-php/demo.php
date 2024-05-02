@@ -30,6 +30,5 @@ $qs->demoPublishMessage(array(
     "bar" => "foo",
 ));
 
-
 // finish
 $utils->log('Demo ran successfully');
