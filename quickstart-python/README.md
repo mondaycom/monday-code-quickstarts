@@ -1,6 +1,6 @@
 # Monday-Code Python Quickstart
 
-This Python Flask application is designed to exemplify the practical use of the Monday Code platform by integrating various Monday app functionalities.
+This Python Flask application is designed to exemplify the practical use of the monday code platform by integrating various monday app functionalities.
 It's an essential resource for developers looking to leverage Monday Code features through a Python environment.
 
 ## Getting Started
