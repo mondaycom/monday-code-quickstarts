@@ -18,11 +18,11 @@ def authorize():
     Redirects the user to the monday.com OAuth2 authorization page.
     First stage of the OAuth flow, Invoked when the user clicks on `Use template` for instance
     """
-    user_id = request.session.get('userId')
+    user_id = str(request.session.get('userId'))
     back_to_url = request.session.get('backToUrl')
 
     connection = SecureStorage.get(user_id)
-    if connection and connection['monday_token']:
+    if connection and connection.get('monday_token'):
         return redirect(back_to_url)
 
     SecureStorage.put(user_id, {'back_to_url': back_to_url})
@@ -35,8 +35,9 @@ def authorize():
     redirect_url = f"{SecretService.get_secret(SecretKeys.MONDAY_OAUTH_BASE_PATH)}?{urlencode(params)}"
 
     response = make_response(redirect(redirect_url))
-    response.set_cookie('state', state)
     response.set_cookie('user_id', user_id)
+    # Save the state in a cookie for later validation, can be stored in the server as well
+    response.set_cookie('state', state)
 
     return response
 
