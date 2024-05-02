@@ -15,6 +15,9 @@ You need to have Python and pip installed on your machine.
 You can download Python from [here](https://www.python.org/downloads/) and pip is included in Python 3.4 and later
 versions.
 
+You can use [venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/) to
+create a virtual environment and install the required packages.
+
 ### Installing
 
 To install the project, follow these steps:
