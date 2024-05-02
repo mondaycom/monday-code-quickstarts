@@ -11,7 +11,7 @@ To set up the app on Monday, follow these steps:
 5. Create a new build and set the project's exposed URL in the "Base URL" field. (You can use
    Monday's [tunneling service](https://developer.monday.com/apps/docs/command-line-interface-cli#mapps-tunnelcreate) to
    expose your local server to the internet). This step is temporary and will be replaced with the URL of your app in
-   Monday Code.
+   monday code.
 
 ### Setting authorization URL
 
@@ -40,8 +40,8 @@ That's it! You have successfully deployed the app to Monday Code. 🚀
 ### Setting up the Environment Variables
 
 1. For setting environment variables in production after deploying to monday-code-
-    1. You can set the secrets manually in monday-code by going to the `General` tab under monday code and
-       then `Environment Variables` section.
+    1. You can set the secrets manually in monday-code by going to the `General` tab under monday code and to
+       the `Environment Variables` section.
     2. Instead, you can use @mondaycom/apps-cli to set the project secrets:
         1. Install apps-cli:
            ```bash
@@ -51,7 +51,7 @@ That's it! You have successfully deployed the app to Monday Code. 🚀
            ```bash
            $ mapps code:env
            ```
-           Choose the app to set environment variables > set > enter the secret key > then enter the value of the
+           Choose the app to set environment variables -> set -> enter the secret key -> then enter the value of the
            secret. The secret will be injected into process.env of your deployment.
 2. Set all the needed environment variables for this app, which can be found in the `.env.example` file.
 

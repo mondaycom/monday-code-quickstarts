@@ -1,6 +1,7 @@
 # Monday-Code Python Quickstart
 
-This Python Flask application is designed to exemplify the practical use of the monday code platform by integrating various monday app functionalities.
+This Python Flask application is designed to showcase the practical use of the monday code platform by integrating
+various monday app functionalities.
 It's an essential resource for developers looking to leverage Monday Code features through a Python environment.
 
 ## Getting Started
@@ -10,8 +11,9 @@ purposes.
 
 ### Prerequisites
 
-You need to have Python and pip installed on your machine. You can download Python
-from [here](https://www.python.org/downloads/) and pip is included in Python 3.4 and later versions.
+You need to have Python and pip installed on your machine.
+You can download Python from [here](https://www.python.org/downloads/) and pip is included in Python 3.4 and later
+versions.
 
 ### Installing
 
@@ -70,7 +72,7 @@ Follow the instructions listed in the [SETUP.md](SETUP.md) file
 5. Monday sends the user back to the app's callback URL with an authorization code.
 6. The app exchanges the authorization code for an access token, This token is then used for subsequent requests to the
    server.
-7. The app saves the access token using Monday Code StorageAPI.
+7. The app saves the access token using Monday's StorageAPI.
 
 ### Custom Action
 
