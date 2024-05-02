@@ -1,1 +1,20 @@
-{}
+{
+    "name": "mondaycom/mondaycode-quickstart",
+    "description": "quickstart project that provides a demo for the essentials capabilities of monday code",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": { 
+            "Mondaycom\\Code\\": "src/" 
+        }
+    },
+    "repositories": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/mondaycom/monday-code-php-sdk.git"
+        }
+      ],
+    "require": {
+        "php": ">=7.4.0",
+        "mondaycom/monday-code": "*@dev"
+    }
+}
