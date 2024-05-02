@@ -1,3 +1,8 @@
+monday-code
 Flask==3.0.0
 gunicorn==20.1.0
 Werkzeug==3.0.1
+urllib3~=2.0.7
+PyJWT~=2.8.0
+bcrypt~=4.1.2
+requests~=2.31.0
