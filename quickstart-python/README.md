@@ -62,15 +62,44 @@ Follow the instructions listed in the [SETUP.md](SETUP.md) file
     Please ensure to review and update the code as necessary to fit your specific needs and requirements
     Remember to keep your OAuth credentials secure and do not expose them in your code or version control system. Use environment variables or other secure methods to handle sensitive data.
 
+### Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Monday
+    participant App
+
+    User->>Monday: Adds recipe from automation center
+    Monday->>App: Sends request to app's authorization URL
+    App->>User: Redirects user to Monday's OAuth authorization page (if not yet authorized)
+    User->>Monday: Logs in and authorizes the app
+    Monday->>App: Sends user back to app's callback URL with an authorization code
+    App->>Monday: Requests access token using the authorization code
+    Monday->>App: Sends access token
+    App->>Monday SDK API: Saves the access token using StorageAPI
+    App->>User: Redirects user back to the first-received redirect URL (recipe page)
+
+    User->>Monday: Uses the custom action in their workflows
+    Monday->>App: Sends a request when the custom action should be executed
+    App->>Monday SDK API: Gets the access token from StorageAPI, using the user's context
+    App->>Monday SDK API: Sends the requested action to the Worker Queue
+    App->>Monday: Responds that the action has been received and will be processed
+
+    Monday SDK API->>App: Worker queue sends a request to the app to process the action
+    App->>App: Processes the action and sends an email
+```
+
 ### Authorization
 
 1. A user adds your recipe from the automation center.
 2. Monday sends a request to your app's authorization URL as configured in `Feature Details`.
 3. If the user has not yet authorized the app, the app redirects the user to Monday's OAuth authorization page.
 4. The user logs in and authorizes the app.
-5. Monday sends the user back to the app's callback URL with an authorization code.
-6. The app exchanges the authorization code for an access token, This token is then used for subsequent requests to the server.
+5. Monday sends a request to the app's callback URL with an authorization code.
+6. The app exchanges with Monday the authorization code for an access token, This token is then used for subsequent requests to the server.
 7. The app saves the access token using Monday's StorageAPI.
+8. The app redirects the user back to the first-received redirect URL, in this case, the recipe page.
 
 ### Custom Action
 
