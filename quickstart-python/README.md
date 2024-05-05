@@ -64,11 +64,15 @@ Follow the instructions listed in the [SETUP.md](SETUP.md) file
 
 ### Sequence Diagram
 
+
+### Authorization
+
 ```mermaid
 sequenceDiagram
     participant User
     participant Monday
     participant App
+    participant Monday SDK API
 
     User->>Monday: Adds recipe from automation center
     Monday->>App: Sends request to app's authorization URL
@@ -79,18 +83,7 @@ sequenceDiagram
     Monday->>App: Sends access token
     App->>Monday SDK API: Saves the access token using StorageAPI
     App->>User: Redirects user back to the first-received redirect URL (recipe page)
-
-    User->>Monday: Uses the custom action in their workflows
-    Monday->>App: Sends a request when the custom action should be executed
-    App->>Monday SDK API: Gets the access token from StorageAPI, using the user's context
-    App->>Monday SDK API: Sends the requested action to the Worker Queue
-    App->>Monday: Responds that the action has been received and will be processed
-
-    Monday SDK API->>App: Worker queue sends a request to the app to process the action
-    App->>App: Processes the action and sends an email
 ```
-
-### Authorization
 
 1. A user adds your recipe from the automation center.
 2. Monday sends a request to your app's authorization URL as configured in `Feature Details`.
@@ -103,6 +96,21 @@ sequenceDiagram
 
 ### Custom Action
 
+```mermaid
+
+sequenceDiagram
+    participant User
+    participant Monday
+    participant App
+    participant Monday SDK API
+
+    User->>Monday: Uses the custom action in their workflows
+    Monday->>App: Sends a request when the custom action should be executed
+    App->>Monday SDK API: Gets the access token from StorageAPI, using the user's context
+    App->>Monday SDK API: Sends the requested action to the Worker Queue
+    App->>Monday: Responds that the action has been received and will be processed
+```
+
 8. The user can now use the custom action in their workflows.
 9. The app receives a request from Monday when the custom action should be executed.
 10. The apps gets the access token from Monday Code StorageAPI, using the user's context.
@@ -110,6 +118,16 @@ sequenceDiagram
 12. The app sends a response to Monday, indicating that the action has been received and will be processed.
 
 ### Worker Queue
+
+```mermaid
+
+sequenceDiagram
+    participant App
+    participant Monday SDK API
+
+    Monday SDK API->>App: Worker queue sends a request to the app to process the action
+    App->>App: Processes the action and sends an email
+```
 
 13. The worker queue sends a request to the app to process the action.
 14. The app processes the action and sends an email.
