@@ -3,10 +3,10 @@ from urllib.parse import urlencode
 
 from flask import request, Blueprint, redirect, make_response
 
-from consts import SecretKeys, EnvironmentKeys
+from consts import EnvironmentKeys
 from errors import GenericBadRequestError
 from middlewares import monday_request_auth
-from services import SecureStorage, SecretService, JWTService, EnvironmentVariablesService
+from services import SecureStorage, JWTService, EnvironmentVariablesService
 
 auth_bp = Blueprint('auth', __name__)
 

@@ -1,4 +1,3 @@
-import inspect
 from typing import Callable
 
 import monday_code

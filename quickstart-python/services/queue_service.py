@@ -2,8 +2,8 @@ import json
 
 from monday_code import PublishMessageParams, QueueApi
 
-from services import with_monday_api, StorageService, MailService
 from models import APITypes
+from services import with_monday_api, StorageService, MailService
 
 
 class QueueService:

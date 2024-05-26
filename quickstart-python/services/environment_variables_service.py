@@ -1,7 +1,5 @@
-from monday_code import SecretApi
-
-from services import with_monday_api
 from models import APITypes
+from services import with_monday_api
 
 
 class EnvironmentVariablesService:
