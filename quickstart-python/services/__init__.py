@@ -5,3 +5,4 @@ from services.storage_service import StorageService
 from services.mail_service import MailService
 from services.queue_service import QueueService
 from services.secure_storage_service import SecureStorage
+from services.environment_variables_service import EnvironmentVariablesService

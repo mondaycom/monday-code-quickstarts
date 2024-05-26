@@ -7,3 +7,4 @@ class APITypes(Enum):
     STORAGE = "StorageApi"
     SECURE_STORAGE = "SecureStorageApi"
     SECRETS = "SecretApi"
+    ENVIRONMENT_VARIABLES = "EnvironmentVariablesApi"
