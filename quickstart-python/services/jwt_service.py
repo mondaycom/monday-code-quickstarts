@@ -2,7 +2,7 @@ import jwt
 import requests
 
 from consts import SecretKeys
-from errors import GenericUnauthorizedError
+from errors import GenericUnauthorizedError, InternalServerError
 from services import SecretService
 
 
@@ -20,7 +20,10 @@ class JWTService:
         Validate a JWT token.
         """
         try:
-            return jwt.decode(token, SecretService.get_secret(SecretKeys.MONDAY_SIGNING_SECRET),
+            signing_secret = SecretService.get_secret(SecretKeys.MONDAY_SIGNING_SECRET)
+            if not signing_secret:
+                raise InternalServerError('No signing secret found')
+            return jwt.decode(token, signing_secret,
                               options={"verify_aud": False, "verify_signature": verify}, algorithms=['HS256'])
         except jwt.ExpiredSignatureError:
             raise GenericUnauthorizedError('Token has expired')
