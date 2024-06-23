@@ -5,15 +5,28 @@ from services import with_monday_api
 
 
 class LogsService:
+    """
+    A service for logging messages with different levels.
+    """
+
     @classmethod
     @with_monday_api(APITypes.LOGS, "write_log")
-    def __log(cls, message: str, method: LogMethods, api_instance: LogsApi = None):
+    def __send_log_to_api(cls, message: str, method: LogMethods, api_instance: LogsApi = None):
+        """
+        Writes a log message with the given level using the monday API.
+        """
+        write_log_request_body = WriteLogRequestBody(message=message, method=method)
+        api_instance.write_log(write_log_request_body)
+
+    @classmethod
+    def __log(cls, message: str, method: LogMethods):
+        """
+        Logs a message with the given level. If an error occurs, raises a LoggingError.
+        """
         try:
-            write_log_request_body = WriteLogRequestBody(message=message, method=method)
-            api_instance.write_log(write_log_request_body)
+            cls.__send_log_to_api(message, method)
         except Exception as e:
-            print(f"Unable to log the following message: {message}")
-            print(f"Additional error occurred in LogsService: {e}")
+            print(f"Unable to log the following message: {message}. Additional error: {e}")
 
     @classmethod
     def info(cls, message: str):
