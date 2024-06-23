@@ -13,7 +13,8 @@ API_MAPPING = {
     APITypes.SECRETS: monday_code.SecretsApi,
     APITypes.STORAGE: monday_code.StorageApi,
     APITypes.SECURE_STORAGE: monday_code.SecureStorageApi,
-    APITypes.ENVIRONMENT_VARIABLES: monday_code.EnvironmentVariablesApi
+    APITypes.ENVIRONMENT_VARIABLES: monday_code.EnvironmentVariablesApi,
+    APITypes.LOGS: monday_code.LogsApi
 }
 
 
