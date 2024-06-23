@@ -1,7 +1,7 @@
 from monday_code import SecretsApi
 
-from services import with_monday_api
 from models import APITypes
+from services import with_monday_api
 
 
 class SecretService:

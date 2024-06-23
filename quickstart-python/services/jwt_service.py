@@ -1,9 +1,9 @@
 import jwt
 import requests
 
-from consts import SecretKeys
+from consts import SecretKeys, EnvironmentKeys
 from errors import GenericUnauthorizedError, InternalServerError
-from services import SecretService
+from services import SecretService, EnvironmentVariablesService
 
 
 class JWTService:
@@ -37,9 +37,9 @@ class JWTService:
         """
         Function that exchanges a code for a monday.com token.
         """
-        response = requests.post(SecretService.get_secret(SecretKeys.MONDAY_OAUTH_TOKEN_PATH),
+        response = requests.post(EnvironmentVariablesService.get_environment_variable(EnvironmentKeys.MONDAY_OAUTH_TOKEN_PATH),
                                  data={'code': code,
-                                       'client_id': SecretService.get_secret(SecretKeys.MONDAY_OAUTH_CLIENT_ID),
+                                       'client_id': EnvironmentVariablesService.get_environment_variable(EnvironmentKeys.MONDAY_OAUTH_CLIENT_ID),
                                        'client_secret': SecretService.get_secret(
                                            SecretKeys.MONDAY_OAUTH_CLIENT_SECRET)})
         response.raise_for_status()  # Raises a HTTPError if the response status is 4xx, 5xx

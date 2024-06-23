@@ -1,4 +1,3 @@
-import inspect
 from typing import Callable
 
 import monday_code
@@ -13,7 +12,9 @@ API_MAPPING = {
     APITypes.QUEUE: monday_code.QueueApi,
     APITypes.SECRETS: monday_code.SecretsApi,
     APITypes.STORAGE: monday_code.StorageApi,
-    APITypes.SECURE_STORAGE: monday_code.SecureStorageApi
+    APITypes.SECURE_STORAGE: monday_code.SecureStorageApi,
+    APITypes.ENVIRONMENT_VARIABLES: monday_code.EnvironmentVariablesApi,
+    APITypes.LOGS: monday_code.LogsApi
 }
 
 

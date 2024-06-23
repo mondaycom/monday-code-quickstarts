@@ -2,8 +2,8 @@ import json
 
 from monday_code import PublishMessageParams, QueueApi
 
-from services import with_monday_api, StorageService, MailService
 from models import APITypes
+from services import with_monday_api, StorageService, MailService, LogsService
 
 
 class QueueService:
@@ -23,7 +23,7 @@ class QueueService:
         """
         # Some long-running process, for example, sending an email
         # todo: Implement better parsing and handling of the message
-        print(f"Received message: {message}")
+        LogsService.debug(f"Received message: {message}")
         message = json.loads(message.get('content'))
         if message.get('method') == 'send_mail':
             monday_access_token = message.get('user_token')
