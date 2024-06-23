@@ -1,5 +1,6 @@
 from flask import Blueprint, request
 
+from errors import InternalServerError
 from middlewares import monday_request_auth
 from services import QueueService, StorageService, SecureStorage
 
@@ -20,7 +21,9 @@ def send_mail():
     content = f"Some trigger just ran! check the board - {board_id}"
     address = "admin.mail@example.com"
 
-    monday_token = SecureStorage.get(user_id).get('monday_token').get('access_token')
+    monday_token = SecureStorage.get(user_id, default_value={}).get('monday_token', {}).get('access_token', None)
+    if not monday_token:
+        raise InternalServerError('monday_token not found')
     # Simulate mail address already saved in the storage, only for StorageService usage example
     StorageService(monday_token).upsert('mail_address', address, '1')
 

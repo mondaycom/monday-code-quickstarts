@@ -3,8 +3,8 @@ import os
 from flask import Flask, jsonify
 from werkzeug.exceptions import HTTPException
 
-from errors import handle_monday_code_api_error, handle_general_http_exception, \
-    MondayCodeAPIError, handle_base_error, BaseError
+from errors import handle_internal_error, handle_general_http_exception, handle_base_error, BaseError, \
+    InternalServerError
 from routes import worker_queue_bp, mail_bp, auth_bp
 
 app = Flask(__name__)
@@ -13,8 +13,8 @@ app.register_blueprint(mail_bp, url_prefix="/mail")
 app.register_blueprint(auth_bp, url_prefix="/auth")
 
 app.register_error_handler(HTTPException, handle_general_http_exception)
+app.register_error_handler(InternalServerError, handle_internal_error)
 app.register_error_handler(BaseError, handle_base_error)
-app.register_error_handler(MondayCodeAPIError, handle_monday_code_api_error)
 
 
 @app.route("/")
