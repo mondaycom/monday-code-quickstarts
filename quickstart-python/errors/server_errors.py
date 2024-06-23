@@ -1,7 +1,13 @@
+from errors import BaseError
 from models import APITypes
 
 
-class MondayCodeAPIError(Exception):
+class InternalServerError(BaseError):
+    def __init__(self, message):
+        super().__init__(message, 500)
+
+
+class MondayCodeAPIError(InternalServerError):
     """Exception raised for errors in the Monday code API.
 
     Attributes:

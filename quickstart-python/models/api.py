@@ -6,5 +6,5 @@ class APITypes(Enum):
     QUEUE = "QueueApi"
     STORAGE = "StorageApi"
     SECURE_STORAGE = "SecureStorageApi"
-    SECRETS = "SecretApi"
+    SECRETS = "SecretsApi"
     ENVIRONMENT_VARIABLES = "EnvironmentVariablesApi"

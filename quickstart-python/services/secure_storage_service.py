@@ -15,14 +15,14 @@ class SecureStorage:
 
     @staticmethod
     @with_monday_api(api_type, 'get_secure_storage')
-    def get(key: str, api_instance: SecureStorageApi = None) -> JSONType:
+    def get(key: str, api_instance: SecureStorageApi = None, default_value=None) -> JSONType:
         api_response = api_instance.get_secure_storage(str(key))
-        return json.loads(api_response.value) if api_response else None
+        return api_response.value if api_response and api_response.value else default_value
 
     @staticmethod
     @with_monday_api(api_type, 'put_secure_storage')
     def put(key: str, value: JSONType, api_instance: SecureStorageApi = None) -> None:
-        secure_storage_data_contract = monday_code.SecureStorageDataContract(value=json.dumps(value))
+        secure_storage_data_contract = monday_code.SecureStorageDataContract.from_dict({'value': value})
         api_instance.put_secure_storage(str(key), secure_storage_data_contract)
 
     @staticmethod
