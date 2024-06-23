@@ -1,3 +1,5 @@
+from monday_code import EnvironmentVariablesApi
+
 from models import APITypes
 from services import with_monday_api
 
