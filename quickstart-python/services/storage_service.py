@@ -20,14 +20,14 @@ class StorageService:
         api_response = api_instance.get_by_key_from_storage(str(key),
                                                             x_monday_access_token=self.monday_access_token,
                                                             shared=shared)
-        return api_response.value.to_dict() if api_response and api_response.value else default_value
+        return api_response.value if api_response else default_value
 
     @with_monday_api(api_type, 'upsert_by_key_from_storage')
-    def upsert(self, key: str, value: JSONType, version: str, previous_version: str = '',
+    def upsert(self, key: str, value: JSONType, previous_version: str = '',
                shared: bool = False, api_instance: StorageApi = None) -> None:
-        data = monday_code.StorageDataContract.from_dict({'value': value, 'version': str(version)})
+        data = monday_code.JsonDataContract(value=value)
         api_instance.upsert_by_key_from_storage(key=str(key), x_monday_access_token=self.monday_access_token,
-                                                storage_data_contract=data,
+                                                json_data_contract=data,
                                                 shared=shared, previous_version=previous_version)
 
     @with_monday_api(api_type, 'delete_by_key_from_storage')

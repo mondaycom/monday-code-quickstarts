@@ -22,8 +22,7 @@ class SecureStorage:
     @staticmethod
     @with_monday_api(api_type, 'put_secure_storage')
     def put(key: str, value: JSONType, api_instance: SecureStorageApi = None) -> None:
-        secure_storage_data_contract = monday_code.SecureStorageDataContract.from_dict({'value': value})
-        api_instance.put_secure_storage(str(key), secure_storage_data_contract)
+        api_instance.put_secure_storage(str(key), monday_code.JsonDataContract(value=value))
 
     @staticmethod
     @with_monday_api(api_type, 'delete_secure_storage')

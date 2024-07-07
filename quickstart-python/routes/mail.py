@@ -25,7 +25,7 @@ def send_mail():
     if not monday_token:
         raise InternalServerError('monday_token not found')
     # Simulate mail address already saved in the storage, only for StorageService usage example
-    StorageService(monday_token).upsert('mail_address', address, '1')
+    StorageService(monday_token).upsert('mail_address', address)
 
     QueueService.publish_message({'method': 'send_mail', 'content': content, 'user_token': monday_token})
     return 'Received', 200
