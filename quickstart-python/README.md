@@ -40,11 +40,17 @@ The application will start running at `http://0.0.0.0:8080`.
 
 This app showcases how to use various Monday app functionalities, including:
 
-* Using Monday apps storage
-* Utilizing Monday apps Secrets / Environment variables
+### Monday Code App Features
+* Using Monday apps Storage and Secure Storage
+* Using Monday apps Secrets and Environment variables
 * Using Monday apps Queue
+* Using Monday code Logger
+
+### Integration and Authentication
 * Implementing OAuth process
 * Authenticating with JWT (JSON Web Tokens)
+
+### Custom Actions and Triggers in Monday
 * Creating custom actions and triggers
 * Implementing an integration recipe
 * Deploying the app to Monday code
