@@ -31,6 +31,7 @@ def authorize():
     # The client should only trust the response if the returned state matches the sent state.
     state = secrets.token_urlsafe(16)  # Generate a random state for CSRF protection
 
+    # For developing Draft versions, include the app_version_id parameter with the draft version's ID
     params = {'client_id': EnvironmentVariablesService.get_environment_variable(EnvironmentKeys.MONDAY_OAUTH_CLIENT_ID), 'state': state}
     redirect_url = f"{EnvironmentVariablesService.get_environment_variable(EnvironmentKeys.MONDAY_OAUTH_BASE_PATH)}?{urlencode(params)}"
 
