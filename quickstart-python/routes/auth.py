@@ -3,10 +3,10 @@ from urllib.parse import urlencode
 
 from flask import request, Blueprint, redirect, make_response
 
-from consts import SecretKeys
+from consts import EnvironmentKeys
 from errors import GenericBadRequestError
 from middlewares import monday_request_auth
-from services import SecureStorage, SecretService, JWTService
+from services import SecureStorage, JWTService, EnvironmentVariablesService
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -31,8 +31,9 @@ def authorize():
     # The client should only trust the response if the returned state matches the sent state.
     state = secrets.token_urlsafe(16)  # Generate a random state for CSRF protection
 
-    params = {'client_id': SecretService.get_secret(SecretKeys.MONDAY_OAUTH_CLIENT_ID), 'state': state}
-    redirect_url = f"{SecretService.get_secret(SecretKeys.MONDAY_OAUTH_BASE_PATH)}?{urlencode(params)}"
+    # For developing Draft versions, include the app_version_id parameter with the draft version's ID
+    params = {'client_id': EnvironmentVariablesService.get_environment_variable(EnvironmentKeys.MONDAY_OAUTH_CLIENT_ID), 'state': state}
+    redirect_url = f"{EnvironmentVariablesService.get_environment_variable(EnvironmentKeys.MONDAY_OAUTH_BASE_PATH)}?{urlencode(params)}"
 
     response = make_response(redirect(redirect_url))
     response.set_cookie('user_id', user_id)

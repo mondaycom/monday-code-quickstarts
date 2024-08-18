@@ -1,11 +1,12 @@
 from flask import jsonify
 from werkzeug.exceptions import HTTPException
 
-from errors import MondayCodeAPIError, BaseError, InternalServerError
+from errors import BaseError, InternalServerError
+from services import LogsService
 
 
 def handle_general_http_exception(exception: HTTPException):
-    print(f'Error: {exception}')
+    LogsService.error(f'Error: {exception}')
     response = jsonify({
         'error': 'HTTPException',
         'message': str(exception)
@@ -15,7 +16,7 @@ def handle_general_http_exception(exception: HTTPException):
 
 
 def handle_internal_error(exception: InternalServerError):
-    print(f'Error: {exception}')
+    LogsService.error(f'Error: {exception}')
     response = jsonify({
         'error': 'Error in processing request',
     })
