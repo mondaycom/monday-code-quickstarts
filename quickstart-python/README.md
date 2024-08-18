@@ -40,7 +40,7 @@ The application will start running at `http://0.0.0.0:8080`.
 
 This app showcases how to use various Monday app functionalities, including:
 
-### Monday Code App Features
+### Monday Code Features
 * Using Monday apps Storage and Secure Storage
 * Using Monday apps Secrets and Environment variables
 * Using Monday apps Queue
