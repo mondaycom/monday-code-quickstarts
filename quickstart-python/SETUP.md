@@ -35,22 +35,17 @@ Congrats, you have successfully set up the app on Monday! 🎉
 
 That's it! You have successfully deployed the app to Monday Code. 🚀
 
-### Setting up the Environment Variables
+### Setting up Environment Variables
 
-1. For setting environment variables in production after deploying to monday-code-
-    1. You can set the secrets manually in monday-code by going to the `General` tab under monday code and to the `Environment Variables` section.
-    2. Instead, you can use @mondaycom/apps-cli to set the project secrets:
-        1. Install apps-cli:
-           ```bash
-           $ npm i -g @mondaycom/apps-cli
-           ```
-        2. Set secrets:
-           ```bash
-           $ mapps code:env
-           ```
-           Choose the app to set environment variables -> set -> enter the secret key -> then enter the value of the secret.
-           The secret will be injected into process.env of your deployment.
+1. Go to the `General` tab under monday code and navigate to the `Environment Variables` section.
 2. Set all the needed environment variables for this app, which can be found in the `.env.example` file.
+
+### Setting up Secrets
+
+1. Go to the `General` tab under monday code and navigate to the `Secrets` section.
+2. Set the following environment variables for this app:
+    - `MONDAY_OAUTH_CLIENT_SECRET`
+    - `MONDAY_SIGNING_SECRET`
 
 ### Creating a Custom Action
 
