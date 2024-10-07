@@ -10,6 +10,7 @@ export default [
   {
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
+      'no-use-before-define': ['error'],
     },
   },
 ];
