@@ -1,6 +1,6 @@
 export interface MondayCode {
   environmentVariablesManager: MondayCodeEnvironmentVariablesManager;
-  secretsManager: MondayCodeSecretManager;
+  secretsManager: MondayCodeSecretsManager;
   logger: MondayCodeLogger;
   storageManager: MondayCodeStorageManager;
   queueManager: MondayCodeQueueManager;
@@ -17,7 +17,7 @@ export interface LogOptions {
   error?: Error;
 }
 
-export interface MondayCodeSecretManager {
+export interface MondayCodeSecretsManager {
   get: (key: string, options?: GetKeyOptions) => string;
 }
 
