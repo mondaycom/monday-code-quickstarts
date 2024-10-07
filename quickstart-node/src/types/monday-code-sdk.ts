@@ -1,36 +1,28 @@
-export interface LogOptions {
-  error?: Error;
-}
-
-export interface GetKeyOptions {
-  invalidate?: boolean;
-}
+import { Logger, SecretsManager, EnvironmentVariablesManager, Storage, Queue } from '@mondaycom/apps-sdk';
 
 export interface MondayCodeLogger {
-  info: (message: string) => void;
-  warn: (message: string) => void;
-  error: (message: string, options?: LogOptions) => void;
-  debug: (message: string) => void;
+  info: InstanceType<typeof Logger>['info'];
+  warn: InstanceType<typeof Logger>['warn'];
+  error: InstanceType<typeof Logger>['error'];
+  debug: InstanceType<typeof Logger>['debug'];
 }
 
 export interface MondayCodeSecretsManager {
-  get: (key: string, options?: GetKeyOptions) => string;
+  get: InstanceType<typeof SecretsManager>['get'];
+  getKeys: InstanceType<typeof SecretsManager>['getKeys'];
 }
 
 export interface MondayCodeEnvironmentVariablesManager {
-  get: (key: string, options?: GetKeyOptions) => string;
+  get: InstanceType<typeof EnvironmentVariablesManager>['get'];
+  getKeys: InstanceType<typeof EnvironmentVariablesManager>['getKeys'];
 }
 
 export interface MondayCodeStorageManager {
-  get: (key: string) => any;
-  set: (key: string, value: any) => void;
-  delete: (key: string) => any;
-}
-
-export interface PublishMessageOptions {
-  topicName?: string;
+  get: InstanceType<typeof Storage>['get'];
+  set: InstanceType<typeof Storage>['set'];
+  delete: InstanceType<typeof Storage>['delete'];
 }
 
 export interface MondayCodeQueueManager {
-  publishMessage: (message: string, options?: PublishMessageOptions) => void;
+  publishMessage: InstanceType<typeof Queue>['publishMessage'];
 }
