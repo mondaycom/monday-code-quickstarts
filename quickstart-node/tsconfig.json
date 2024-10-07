@@ -8,7 +8,14 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",
-    "baseUrl": "."
+    "baseUrl": "src",
+    "paths": {
+      "@my-types/*": ["types/*"],
+      "@errors/*": ["errors/*"],
+      "@services/*": ["services/*"],
+      "@routes/*": ["routes/*"],
+      "@middlewares/*": ["middlewares/*"]
+    }
   },
   "include": [
     "src/**/*"
