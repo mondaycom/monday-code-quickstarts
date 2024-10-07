@@ -34,11 +34,3 @@ export interface PublishMessageOptions {
 export interface MondayCodeQueueManager {
   publishMessage: (message: string, options?: PublishMessageOptions) => void;
 }
-
-export interface MondayCode {
-  environmentVariablesManager: MondayCodeEnvironmentVariablesManager;
-  secretsManager: MondayCodeSecretsManager;
-  logger: MondayCodeLogger;
-  storageManager: MondayCodeStorageManager;
-  queueManager: MondayCodeQueueManager;
-}
