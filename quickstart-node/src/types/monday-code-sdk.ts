@@ -1,28 +1,57 @@
-import { Logger, SecretsManager, EnvironmentVariablesManager, Storage, Queue } from '@mondaycom/apps-sdk';
+export type JsonValue = string | number | boolean | null | Array<JsonValue> | { [key: string]: JsonValue };
 
 export interface MondayCodeLogger {
-  info: InstanceType<typeof Logger>['info'];
-  warn: InstanceType<typeof Logger>['warn'];
-  error: InstanceType<typeof Logger>['error'];
-  debug: InstanceType<typeof Logger>['debug'];
+  info: (message: string) => void;
+  debug: (message: string) => void;
+  warn: (message: string) => void;
+  error: (message: string, error: Error) => void;
 }
 
-export interface MondayCodeSecretsManager {
-  get: InstanceType<typeof SecretsManager>['get'];
-  getKeys: InstanceType<typeof SecretsManager>['getKeys'];
+export interface GetKeyOptions {
+  invalidate?: boolean;
 }
 
-export interface MondayCodeEnvironmentVariablesManager {
-  get: InstanceType<typeof EnvironmentVariablesManager>['get'];
-  getKeys: InstanceType<typeof EnvironmentVariablesManager>['getKeys'];
+export interface MondayCodeKeyValueManager {
+  getKeys: (options?: GetKeyOptions) => Array<string>;
+  get: (key: string, options?: GetKeyOptions) => JsonValue | undefined;
 }
+
+export type StorageOptions = {
+  shared?: boolean;
+  previousVersion?: string;
+};
+
+export type StorageSetResponse = {
+  version?: string;
+  success: boolean;
+  error?: string;
+};
+
+export type StorageGetResponse<T extends JsonValue> = {
+  success: boolean;
+  version?: string;
+  value: T | null;
+  error?: string;
+};
+
+export type StorageDeleteResponse = {
+  success: boolean;
+  error?: string;
+};
 
 export interface MondayCodeStorageManager {
-  get: InstanceType<typeof Storage>['get'];
-  set: InstanceType<typeof Storage>['set'];
-  delete: InstanceType<typeof Storage>['delete'];
+  set: <T extends JsonValue>(key: string, value: T, options?: StorageOptions) => Promise<StorageSetResponse>;
+  get: <T extends JsonValue>(key: string, options?: StorageOptions) => Promise<StorageGetResponse<T>>;
+  delete: (key: string, options?: StorageOptions) => Promise<StorageDeleteResponse>;
 }
 
+export type MondayCodeSecureStorageManager = {
+  set: <T extends JsonValue>(key: string, value: T) => Promise<boolean>;
+  get: <T extends JsonValue>(key: string) => Promise<T | null>;
+  delete: (key: string) => Promise<boolean>;
+};
+
 export interface MondayCodeQueueManager {
-  publishMessage: InstanceType<typeof Queue>['publishMessage'];
+  publishMessage: (message: Uint8Array | string, options?: { topicName: string }) => Promise<string>;
+  validateMessageSecret: (secret: string) => boolean;
 }
