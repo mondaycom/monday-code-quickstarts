@@ -24,8 +24,8 @@ authRouter.get('/', mondayRequestAuth, async (req: Request, res: Response) => {
   const userId = String(req.session?.userId);
   const backToUrl = req.session?.backToUrl;
 
-  const connection = await SecureStorageService.getInstance().get<any>(userId);
-  if (connection && connection.monday_token) {
+  const userDetails = await SecureStorageService.getInstance().get<any>(userId);
+  if (userDetails && userDetails.monday_token) {
     return res.redirect(backToUrl);
   }
 
