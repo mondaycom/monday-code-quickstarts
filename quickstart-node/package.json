@@ -4,26 +4,48 @@
   "description": "",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js",
-    "dev": "nodemon src/index.ts"
+    "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register dist/index.js",
+    "dev": "nodemon"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
+    "exec": "node -r tsconfig-paths/register -r ts-node/register ./src/index.ts",
+    "ext": "ts, js"
+  },
   "dependencies": {
     "@mondaycom/apps-sdk": "^3.0.11",
+    "@mondaydotcomorg/api": "^4.0.4",
+    "axios": "^1.7.7",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.5",
-    "express": "^4.21.0"
+    "express": "^5.0.1",
+    "http-errors": "^2.0.0",
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.12.0",
+    "@types/axios": "^0.14.0",
+    "@types/cookie-parser": "^1.4.7",
     "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.7.4",
     "eslint": "^9.12.0",
     "globals": "^15.10.0",
     "nodemon": "^3.1.7",
     "prettier": "3.3.3",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.6.2",
     "typescript-eslint": "^8.8.0"
   }

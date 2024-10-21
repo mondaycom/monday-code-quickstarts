@@ -9,11 +9,16 @@ export interface MondayCodeLogger {
 
 export interface GetKeyOptions {
   invalidate?: boolean;
+  throwOnUndefined?: boolean;
+}
+
+export interface GetKeysOptions {
+  invalidate?: boolean;
 }
 
 export interface MondayCodeKeyValueManager {
   getKeys: (options?: GetKeyOptions) => Array<string>;
-  get: (key: string, options?: GetKeyOptions) => JsonValue | undefined;
+  get: (key: string, options?: GetKeysOptions) => JsonValue | undefined;
 }
 
 export type StorageOptions = {
