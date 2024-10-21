@@ -4,7 +4,7 @@ import { BadRequest, InternalServerError } from 'http-errors';
 import { EnvironmentVariablesService, SecureStorageService } from '@services/monday-code';
 import { JWTService } from '@services/jwt.service';
 import { mondayRequestAuth } from '@middlewares/auth.middleware';
-import { generateUrlSafeString } from '@utils/url.utils';
+import { generateRandomUrlSafeString } from '@utils/url.utils';
 import { EnvironmentsKeys } from '@shared/monday-auth-consts';
 
 const authRouter = express.Router();
@@ -32,7 +32,7 @@ authRouter.get('/', mondayRequestAuth, async (req: Request, res: Response) => {
   await SecureStorageService.getInstance().set(userId, { back_to_url: backToUrl });
 
   // Generate a random state for CSRF protection
-  const state = generateUrlSafeString(16);
+  const state = generateRandomUrlSafeString(16);
 
   // Prepare OAuth2 parameters
   const params = new URLSearchParams({
