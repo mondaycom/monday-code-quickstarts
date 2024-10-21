@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { LoggerService } from '@services/monday-code';
+import { HttpStatusCode } from 'axios';
 
 /** Here you can put your error handling logic
  * NOTE: we are using express 5, so each error, even async errors, will get here eventually,
@@ -7,16 +8,18 @@ import { LoggerService } from '@services/monday-code';
  *       Feel free to go to this page and learn more about error handling in express: https://expressjs.com/en/guide/error-handling.html
  */
 const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
-  const statusCode = err.status || 500;
+  const statusCode = err.status || HttpStatusCode.InternalServerError;
   const message = err.message || 'Internal Server Error';
 
-  if (statusCode >= 500) {
+  if (statusCode >= HttpStatusCode.InternalServerError) {
+    LoggerService.getInstance().error(message, err);
+  } else if (err.logging) {
     LoggerService.getInstance().error(message, err);
   }
 
   res.status(statusCode).json({
     statusCode,
-    message: statusCode === 500 ? 'Internal Server Error' : message,
+    message: statusCode === HttpStatusCode.InternalServerError ? 'Internal Server Error' : message,
   });
 };
 
