@@ -19,7 +19,7 @@ export class EnvironmentVariablesService implements MondayCodeKeyValueManager {
     return this.instance;
   }
 
-  get(key: string, options?: GetKeyOptions): JsonValue | undefined {
+  get(key: string, options: GetKeyOptions = { throwOnUndefined: true }): JsonValue | undefined {
     const value = this.mondayCodeEnvironmentVariablesManager.get(key, options);
 
     if (options?.throwOnUndefined) validateMondayCodeKeyValue(value, key, EnvironmentVariablesService.name);

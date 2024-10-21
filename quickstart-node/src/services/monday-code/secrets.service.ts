@@ -19,12 +19,12 @@ export class SecretsService implements MondayCodeKeyValueManager {
     return this.instance;
   }
 
-  get(key: string, options?: GetKeyOptions): JsonValue | undefined {
+  get(key: string, options: GetKeyOptions = { throwOnUndefined: true }): JsonValue | undefined {
     const value = this.mondayCodeSecretsManager.get(key, options);
 
     if (options?.throwOnUndefined) validateMondayCodeKeyValue(value, key, SecretsService.name);
 
-    return this.mondayCodeSecretsManager.get(key, options);
+    return value;
   }
 
   getKeys(options?: GetKeysOptions): Array<string> {
