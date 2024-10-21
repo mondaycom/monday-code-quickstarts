@@ -3,10 +3,20 @@ import { GetKeyOptions, JsonValue, MondayCodeKeyValueManager } from '@my-types/m
 
 export class SecretsService implements MondayCodeKeyValueManager {
   // eslint-disable-next-line no-use-before-define
-  public static instance: SecretsService = new SecretsService();
-  private mondayCodeSecretsManager = new SecretsManager();
+  private static instance: SecretsService;
+  private mondayCodeSecretsManager;
 
-  private constructor() {}
+  private constructor() {
+    this.mondayCodeSecretsManager = new SecretsManager();
+  }
+
+  static getInstance(): SecretsService {
+    if (!this.instance) {
+      this.instance = new SecretsService();
+    }
+
+    return this.instance;
+  }
 
   get(key: string, options?: GetKeyOptions): JsonValue | undefined {
     return this.mondayCodeSecretsManager.get(key, options);

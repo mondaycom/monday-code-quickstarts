@@ -5,8 +5,20 @@ const packageJson = require('../../../package.json');
 
 export class LoggerService implements MondayCodeLogger {
   // eslint-disable-next-line no-use-before-define
-  public static instance: LoggerService = new LoggerService();
-  private mondayCodeLoggerManager = new Logger(packageJson.name || 'my-app');
+  private static instance: LoggerService;
+  private mondayCodeLoggerManager;
+
+  private constructor() {
+    this.mondayCodeLoggerManager = new Logger(packageJson.name || 'my-app');
+  }
+
+  static getInstance(): LoggerService {
+    if (!this.instance) {
+      this.instance = new LoggerService();
+    }
+
+    return this.instance;
+  }
 
   debug(message: string): void {
     return this.mondayCodeLoggerManager.debug(message);

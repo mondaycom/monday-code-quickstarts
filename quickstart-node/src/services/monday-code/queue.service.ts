@@ -3,10 +3,20 @@ import { MondayCodeQueueManager } from '@my-types/monday-code-sdk';
 
 export class QueueService implements MondayCodeQueueManager {
   // eslint-disable-next-line no-use-before-define
-  public static instance: QueueService = new QueueService();
-  private mondayCodeQueueManager = new Queue();
+  private static instance: QueueService;
+  private mondayCodeQueueManager;
 
-  private constructor() {}
+  private constructor() {
+    this.mondayCodeQueueManager = new Queue();
+  }
+
+  static getInstance(): QueueService {
+    if (!this.instance) {
+      this.instance = new QueueService();
+    }
+
+    return this.instance;
+  }
 
   publishMessage(message: Uint8Array | string, options?: { topicName: string }): Promise<string> {
     return this.mondayCodeQueueManager.publishMessage(message, options);

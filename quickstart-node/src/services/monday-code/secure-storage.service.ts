@@ -3,10 +3,20 @@ import { MondayCodeSecureStorageManager, JsonValue } from '@my-types/monday-code
 
 export class SecureStorageService implements MondayCodeSecureStorageManager {
   // eslint-disable-next-line no-use-before-define
-  public static instance: SecureStorageService = new SecureStorageService();
-  private mondayCodeSecureStorageManager = new SecureStorage();
+  private static instance: SecureStorageService;
+  private mondayCodeSecureStorageManager;
 
-  private constructor() {}
+  private constructor() {
+    this.mondayCodeSecureStorageManager = new SecureStorage();
+  }
+
+  static getInstance(): SecureStorageService {
+    if (!this.instance) {
+      this.instance = new SecureStorageService();
+    }
+
+    return this.instance;
+  }
 
   delete(key: string): Promise<boolean> {
     return this.mondayCodeSecureStorageManager.delete(key);

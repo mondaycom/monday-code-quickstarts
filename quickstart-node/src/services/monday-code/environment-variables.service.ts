@@ -3,10 +3,20 @@ import { GetKeyOptions, JsonValue, MondayCodeKeyValueManager } from '@my-types/m
 
 export class EnvironmentVariablesService implements MondayCodeKeyValueManager {
   // eslint-disable-next-line no-use-before-define
-  public static instance: EnvironmentVariablesService = new EnvironmentVariablesService();
-  private mondayCodeEnvironmentVariablesManager = new EnvironmentVariablesManager();
+  private static instance: EnvironmentVariablesService;
+  private mondayCodeEnvironmentVariablesManager;
 
-  private constructor() {}
+  private constructor() {
+    this.mondayCodeEnvironmentVariablesManager = new EnvironmentVariablesManager();
+  }
+
+  static getInstance(): EnvironmentVariablesService {
+    if (!this.instance) {
+      this.instance = new EnvironmentVariablesService();
+    }
+
+    return this.instance;
+  }
 
   get(key: string, options?: GetKeyOptions): JsonValue | undefined {
     return this.mondayCodeEnvironmentVariablesManager.get(key, options);

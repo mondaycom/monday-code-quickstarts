@@ -10,7 +10,7 @@ import {
 } from '@my-types/monday-code-sdk';
 
 export class StorageService implements MondayCodeStorageManager {
-  private mondayCodeStorageManager: Storage;
+  private mondayCodeStorageManager;
 
   constructor(token: string) {
     if (!token) {
