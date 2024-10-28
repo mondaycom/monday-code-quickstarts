@@ -25,16 +25,17 @@ authRouter.get('/', mondayRequestAuth, async (req: Request, res: Response) => {
   const backToUrl = req.session?.backToUrl;
 
   const userDetails = await SecureStorageService.getInstance().get<any>(userId);
-  if (userDetails && userDetails.monday_token) {
+  if (userDetails && userDetails.mondayToken) {
     return res.redirect(backToUrl);
   }
 
-  await SecureStorageService.getInstance().set(userId, { back_to_url: backToUrl });
+  await SecureStorageService.getInstance().set(userId, { backToUrl });
 
-  // Generate a random state for CSRF protection
-  const state = generateRandomUrlSafeString(16);
+  // The state parameter is used for CSRF protection. It's a random string sent to the server and returned back.
+  // The client should only trust the response if the returned state matches the sent state.
+  const state = generateRandomUrlSafeString(16); // Generate a random state for CSRF protection
 
-  // Prepare OAuth2 parameters
+  // For developing Draft versions, include the app_version_id parameter with the draft version's ID
   const params = new URLSearchParams({
     client_id: EnvironmentVariablesService.getInstance().get(EnvironmentsKeys.MONDAY_OAUTH_CLIENT_ID) as string,
     state: state,
@@ -60,8 +61,8 @@ authRouter.get('/monday/callback', async (req: Request, res: Response) => {
 
   const mondayToken = await JWTService.getMondayToken(code);
 
-  const backToUrl = ((await SecureStorageService.getInstance().get(userId)) as any)?.back_to_url;
-  await SecureStorageService.getInstance().set(userId, { monday_token: mondayToken });
+  const backToUrl = (await SecureStorageService.getInstance().get<any>(userId))?.backToUrl;
+  await SecureStorageService.getInstance().set(userId, { mondayToken });
 
   return res.redirect(backToUrl);
 });
