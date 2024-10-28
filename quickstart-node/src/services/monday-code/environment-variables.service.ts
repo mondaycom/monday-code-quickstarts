@@ -1,5 +1,6 @@
 import { EnvironmentVariablesManager } from '@mondaycom/apps-sdk';
-import { GetKeyOptions, JsonValue, MondayCodeKeyValueManager } from '@my-types/monday-code-sdk';
+import { GetKeyOptions, GetKeysOptions, JsonValue, MondayCodeKeyValueManager } from '@my-types/monday-code-sdk';
+import { validateMondayCodeKeyValue } from '@utils/error.utils';
 
 export class EnvironmentVariablesService implements MondayCodeKeyValueManager {
   // eslint-disable-next-line no-use-before-define
@@ -18,11 +19,15 @@ export class EnvironmentVariablesService implements MondayCodeKeyValueManager {
     return this.instance;
   }
 
-  get(key: string, options?: GetKeyOptions): JsonValue | undefined {
-    return this.mondayCodeEnvironmentVariablesManager.get(key, options);
+  get(key: string, options: GetKeyOptions = { throwOnUndefined: true }): JsonValue | undefined {
+    const value = this.mondayCodeEnvironmentVariablesManager.get(key, options);
+
+    if (options?.throwOnUndefined) validateMondayCodeKeyValue(value, key, EnvironmentVariablesService.name);
+
+    return value;
   }
 
-  getKeys(options?: GetKeyOptions): Array<string> {
+  getKeys(options?: GetKeysOptions): Array<string> {
     return this.mondayCodeEnvironmentVariablesManager.getKeys(options);
   }
 }
