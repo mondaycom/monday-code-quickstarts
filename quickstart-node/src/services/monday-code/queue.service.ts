@@ -31,7 +31,8 @@ export class QueueService implements MondayCodeQueueManager {
   }
 
   /**
-   * This function will parse the message from the queue to do some long-running process according to its content
+   * This function will parse the message from the queue to do some long-running process according to its content.
+   * This is only an example function, feel free to change it according to your needs
    */
   async parseQueueMessage(message: QueueMessage): Promise<void> {
     LoggerService.getInstance().debug(`Received message: ${JSON.stringify(message)}`);
