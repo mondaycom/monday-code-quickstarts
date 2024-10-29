@@ -1,3 +1,5 @@
+import { QueueMethods } from '@shared/queue.consts';
+
 export type JsonValue = string | number | boolean | null | Array<JsonValue> | { [key: string]: JsonValue };
 
 export interface MondayCodeLogger {
@@ -56,7 +58,12 @@ export type MondayCodeSecureStorageManager = {
   delete: (key: string) => Promise<boolean>;
 };
 
+export interface QueueMessage extends Record<string, any> {
+  method: QueueMethods;
+}
+
 export interface MondayCodeQueueManager {
-  publishMessage: (message: Uint8Array | string, options?: { topicName: string }) => Promise<string>;
+  publishMessage: (message: QueueMessage, options?: { topicName: string }) => Promise<string>;
   validateMessageSecret: (secret: string) => boolean;
+  parseQueueMessage: (message: QueueMessage) => void;
 }
