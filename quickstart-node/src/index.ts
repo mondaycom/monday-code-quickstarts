@@ -16,13 +16,13 @@ const port = process.env.PORT || 3000;
 app.use(cookieParser());
 
 // Routes
-app.use('/', (req: Request, res: Response) => {
-  res.status(HttpStatusCode.Ok).send('Server is up and running');
-});
 app.use('/auth', authRouter);
 app.use('/monday', mondayRouter);
 app.use('/queue', queueRouter);
 app.use('/mail', mailRouter);
+app.use('/', (req: Request, res: Response) => {
+  res.status(HttpStatusCode.Ok).send('Server is up and running');
+});
 
 // This middleware should always be the last middleware
 app.use(errorHandler);
