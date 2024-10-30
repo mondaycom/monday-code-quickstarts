@@ -30,6 +30,7 @@
     "@mondaycom/apps-sdk": "^3.0.11",
     "@mondaydotcomorg/api": "^5.0.1",
     "axios": "^1.7.7",
+    "body-parser": "^2.0.1",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.5",
     "express": "^5.0.1",

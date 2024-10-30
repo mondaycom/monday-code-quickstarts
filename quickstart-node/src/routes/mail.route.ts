@@ -11,13 +11,13 @@ mailRouter.post('/send', mondayRequestAuth, async (req: Request, res: Response) 
   const userId = req.session?.userId;
   const payload = req.body?.payload;
 
-  if (!userId || !payload) {
-    throw new BadRequest('User ID or payload not found');
+  if (!userId) {
+    throw new BadRequest('User ID not found');
   }
 
   // In real world scenarios, the relevant content and address can be extracted a graphQL query to monday's API
   // using the boardId and other input fields set in the workflow blocks in Monday developer center
-  const boardId = payload.inputFields?.boardId || 'Example Board ID';
+  const boardId = payload?.inputFields?.boardId || 'Example Board ID';
   const content = `Some trigger just ran! check the board - ${boardId}`;
   const address = 'admin.mail@example.com';
 

@@ -4,6 +4,7 @@ import { LoggerService, QueueService } from '@services/monday-code';
 import { Unauthorized } from 'http-errors';
 import { StatusCodes } from 'http-status-codes';
 import { HttpStatusCode } from 'axios';
+import bodyParser from 'body-parser';
 
 const queueRouter = express.Router();
 
@@ -11,7 +12,7 @@ const queueRouter = express.Router();
  * This route will receive the callback from our queue and process it,
  * Letting the queue wait instead of the user
  */
-queueRouter.post('/mndy-queue', async (req: Request, res: Response) => {
+queueRouter.post('/mndy-queue', bodyParser.json(), async (req: Request, res: Response) => {
   const { secret } = req.query;
   // Validates that the request is triggered by monday code
   if (!(typeof secret === 'string') || !QueueService.getInstance().validateMessageSecret(secret)) {
