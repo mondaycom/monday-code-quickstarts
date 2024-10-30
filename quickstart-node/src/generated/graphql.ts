@@ -1126,8 +1126,6 @@ export type FormulaValue = ColumnValue & {
   __typename?: 'FormulaValue';
   /** The column that this value belongs to. */
   column: Column;
-  /** A string representing all the formula values, separated by commas */
-  display_value: Scalars['String']['output'];
   /** The column's unique identifier. */
   id: Scalars['ID']['output'];
   /** Text representation of the column value. Note: Not all columns support textual value */
@@ -3177,7 +3175,12 @@ export type GetItemsInGroupQueryVariables = Exact<{
 }>;
 
 
-export type GetItemsInGroupQuery = { __typename?: 'Query', boards?: Array<{ __typename?: 'Board', groups?: Array<{ __typename?: 'Group', items_page: { __typename?: 'ItemsResponse', items: Array<(
-          { __typename?: 'Item' }
-          & ItemWithColumnValuesFragment
-        )> } } | null> | null } | null> | null };
+export type GetItemsInGroupQuery = { __typename?: 'Query', boards?: Array<{ __typename?: 'Board', groups?: Array<{ __typename?: 'Group', items_page: { __typename?: 'ItemsResponse', items: Array<{ __typename?: 'Item', id: string, column_values: Array<{ __typename?: 'BoardRelationValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'ButtonValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'CheckboxValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'ColorPickerValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'CountryValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'CreationLogValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'DateValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'DependencyValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'DocValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'DropdownValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'EmailValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'FileValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'FormulaValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'GroupValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'HourValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'IntegrationValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'ItemIdValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'LastUpdatedValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'LinkValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'LocationValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'LongTextValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'MirrorValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'NumbersValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'PeopleValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'PersonValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'PhoneValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'ProgressValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'RatingValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'StatusValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'SubtasksValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'TagsValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'TeamValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'TextValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'TimeTrackingValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'TimelineValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'UnsupportedValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'VoteValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'WeekValue', text?: string | null, type: ColumnType, value?: any | null } | { __typename?: 'WorldClockValue', text?: string | null, type: ColumnType, value?: any | null }> }> } } | null> | null } | null> | null };
+
+export type CreateItemMutationVariables = Exact<{
+  boardId: Scalars['ID']['input'];
+  itemName: Scalars['String']['input'];
+}>;
+
+
+export type CreateItemMutation = { __typename?: 'Mutation', create_item?: { __typename?: 'Item', id: string } | null };
