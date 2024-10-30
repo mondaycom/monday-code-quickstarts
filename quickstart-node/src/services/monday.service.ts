@@ -1,7 +1,12 @@
 import { ApiClient, ChangeColumnValueOpMutation } from '@mondaydotcomorg/api';
 import { NotFound } from 'http-errors';
-import { GetItemsInGroupQuery, GetItemsInGroupQueryVariables, ItemWithColumnValuesFragment } from 'generated/graphql';
-import { getItemsInGroup } from 'queries.graphql';
+import {
+  CreateItemMutationVariables,
+  GetItemsInGroupQuery,
+  GetItemsInGroupQueryVariables,
+  ItemWithColumnValuesFragment,
+} from 'generated/graphql';
+import { createItem, getItemsInGroup } from 'queries.graphql';
 
 const UPDATED_MONDAY_API_VERSION = '2024-10';
 
@@ -36,18 +41,30 @@ export class MondayService {
     };
     const boards = await mondayApi.query<GetItemsInGroupQuery>(getItemsInGroup, getItemsInGroupQueryVariables);
 
-    if (boards?.boards?.length > 0) {
-      if (boards.boards[0].groups?.length > 0) {
-        if (boards.boards[0].groups[0].items_page?.items.length > 0) {
-          return boards.boards[0].groups[0].items_page?.items[0];
-        } else {
-          throw NotFound(`There are no items in board id: ${boardId} in group id: ${groupId}`);
-        }
-      } else {
-        throw NotFound(`Group id: ${groupId} in boardId: ${boardId} was not found`);
-      }
-    } else {
-      throw NotFound(`Board id: ${boardId} not found`);
+    const firstItem = boards?.boards?.[0]?.groups?.[0]?.items_page?.items?.[0];
+
+    if (firstItem) {
+      return firstItem;
     }
+
+    if (!boards?.boards?.length) {
+      throw new NotFound(`Board id: ${boardId} not found`);
+    }
+
+    if (!boards.boards[0].groups?.length) {
+      throw new NotFound(`Group id: ${groupId} in boardId: ${boardId} was not found`);
+    }
+
+    throw new NotFound(`There are no items in board id: ${boardId} in group id: ${groupId}`);
+  }
+
+  static async createItem(token: string, boardId: string, itemName: string): Promise<string> {
+    const mondayApi = new ApiClient(token, '2024-07');
+    const createItemVariables: CreateItemMutationVariables = {
+      itemName,
+      boardId,
+    };
+
+    return mondayApi.query(createItem, createItemVariables);
   }
 }

@@ -45,7 +45,7 @@ mondayRouter.post('/change-last-item-status', async (req: Request, res: Response
 mondayRouter.post('/error-handle-example', async (req: Request, res: Response) => {
   const { shortLivedToken } = req.session;
 
-  await MondayService.getLastItemInGroup(shortLivedToken, '99999999', 'not_exist_group_id');
+  await MondayService.createItem(shortLivedToken, '99999999', 'foo');
 
   res.status(200).send('If it got here, the function did not throw any errors for some reason');
 });
