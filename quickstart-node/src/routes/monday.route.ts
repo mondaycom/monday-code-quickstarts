@@ -4,9 +4,11 @@ import { mondayRequestAuth } from '@middlewares/auth.middleware';
 import { MondayService } from '@services/monday.service';
 import { HttpStatusCode } from 'axios';
 import mondayApiErrorHandler from '@middlewares/monday-api-error.middleware';
+import bodyParser from 'body-parser';
 
 const mondayRouter = express.Router();
 
+mondayRouter.use(bodyParser.json());
 mondayRouter.use(mondayRequestAuth);
 
 mondayRouter.post('/update-date-to-now', async (req: Request, res: Response, next: NextFunction) => {

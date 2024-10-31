@@ -20,7 +20,7 @@ export class MondayService {
     boardId: string,
     columnId: string,
   ): Promise<ChangeColumnValueOpMutation> {
-    const mondayApi = new ApiClient(token, UPDATED_MONDAY_API_VERSION);
+    const mondayApi = new ApiClient({ token, apiVersion: UPDATED_MONDAY_API_VERSION });
     return mondayApi.operations.changeColumnValueOp({
       boardId,
       itemId,
@@ -34,12 +34,12 @@ export class MondayService {
     boardId: string,
     groupId: string,
   ): Promise<ItemWithColumnValuesFragment> {
-    const mondayApi = new ApiClient(token, UPDATED_MONDAY_API_VERSION);
+    const mondayApi = new ApiClient({ token, apiVersion: UPDATED_MONDAY_API_VERSION });
     const getItemsInGroupQueryVariables: GetItemsInGroupQueryVariables = {
       groupId,
       boardId,
     };
-    const boards = await mondayApi.query<GetItemsInGroupQuery>(getItemsInGroup, getItemsInGroupQueryVariables);
+    const boards = await mondayApi.request<GetItemsInGroupQuery>(getItemsInGroup, getItemsInGroupQueryVariables);
 
     const firstItem = boards?.boards?.[0]?.groups?.[0]?.items_page?.items?.[0];
 
@@ -59,12 +59,12 @@ export class MondayService {
   }
 
   static async createItem(token: string, boardId: string, itemName: string): Promise<string> {
-    const mondayApi = new ApiClient(token, '2024-07');
+    const mondayApi = new ApiClient({ token, apiVersion: UPDATED_MONDAY_API_VERSION });
     const createItemVariables: CreateItemMutationVariables = {
       itemName,
       boardId,
     };
 
-    return mondayApi.query(createItem, createItemVariables);
+    return mondayApi.request(createItem, createItemVariables);
   }
 }
