@@ -4,6 +4,7 @@ export const itemWithColumnValues = gql`
   fragment ItemWithColumnValues on Item {
     id
     column_values {
+      id
       text
       type
       value

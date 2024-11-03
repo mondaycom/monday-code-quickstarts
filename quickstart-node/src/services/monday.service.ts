@@ -1,5 +1,4 @@
 import { ApiClient, ChangeColumnValueOpMutation } from '@mondaydotcomorg/api';
-import { NotFound } from 'http-errors';
 import {
   CreateItemMutationVariables,
   GetItemsInGroupQuery,
@@ -7,21 +6,30 @@ import {
   ItemWithColumnValuesFragment,
 } from 'generated/graphql';
 import { createItem, getItemsInGroup } from 'queries.graphql';
+import { getValueFromExecutionContext } from '@utils/execution-context.utils';
+import { NotFound } from 'http-errors';
 
-const UPDATED_MONDAY_API_VERSION = '2024-10';
+export const UPDATED_MONDAY_API_VERSION = '2024-10';
 
 export class MondayService {
   private constructor() {}
 
+  static getMondayApiClient(token?: string): ApiClient {
+    if (token) {
+      return new ApiClient({ token, apiVersion: UPDATED_MONDAY_API_VERSION });
+    } else {
+      return getValueFromExecutionContext('mondayApiClient');
+    }
+  }
+
   static async changeColumnValue(
-    token: string,
     value: any,
     itemId: string,
     boardId: string,
     columnId: string,
+    token?: string,
   ): Promise<ChangeColumnValueOpMutation> {
-    const mondayApi = new ApiClient({ token, apiVersion: UPDATED_MONDAY_API_VERSION });
-    return mondayApi.operations.changeColumnValueOp({
+    return MondayService.getMondayApiClient(token).operations.changeColumnValueOp({
       boardId,
       itemId,
       columnId,
@@ -29,22 +37,31 @@ export class MondayService {
     });
   }
 
-  static async getLastItemInGroup(
-    token: string,
+  static async getLastItemInGroupByDate(
     boardId: string,
     groupId: string,
+    dateColumnId: string,
+    token?: string,
   ): Promise<ItemWithColumnValuesFragment> {
-    const mondayApi = new ApiClient({ token, apiVersion: UPDATED_MONDAY_API_VERSION });
     const getItemsInGroupQueryVariables: GetItemsInGroupQueryVariables = {
       groupId,
       boardId,
     };
-    const boards = await mondayApi.request<GetItemsInGroupQuery>(getItemsInGroup, getItemsInGroupQueryVariables);
+    const boards = await MondayService.getMondayApiClient(token).request<GetItemsInGroupQuery>(
+      getItemsInGroup,
+      getItemsInGroupQueryVariables,
+    );
 
-    const firstItem = boards?.boards?.[0]?.groups?.[0]?.items_page?.items?.[0];
+    const items = boards?.boards?.[0]?.groups?.[0]?.items_page?.items;
 
-    if (firstItem) {
-      return firstItem;
+    if (items && items.length > 0) {
+      const itemsSorted = this.getSortedItemsByDateColumn(dateColumnId, items);
+
+      if (itemsSorted.length > 0) {
+        return itemsSorted[0];
+      } else {
+        throw new NotFound(`No items with valid date value exist in the group with group id: ${groupId}`);
+      }
     }
 
     if (!boards?.boards?.length) {
@@ -52,19 +69,54 @@ export class MondayService {
     }
 
     if (!boards.boards[0].groups?.length) {
-      throw new NotFound(`Group id: ${groupId} in boardId: ${boardId} was not found`);
+      throw new NotFound(`Group id: ${groupId} in board id: ${boardId} was not found`);
     }
 
     throw new NotFound(`There are no items in board id: ${boardId} in group id: ${groupId}`);
   }
 
-  static async createItem(token: string, boardId: string, itemName: string): Promise<string> {
-    const mondayApi = new ApiClient({ token, apiVersion: UPDATED_MONDAY_API_VERSION });
+  static async createItem(boardId: string, itemName: string, token?: string): Promise<string> {
     const createItemVariables: CreateItemMutationVariables = {
       itemName,
       boardId,
     };
 
-    return mondayApi.request(createItem, createItemVariables);
+    return MondayService.getMondayApiClient(token).request(createItem, createItemVariables);
+  }
+
+  private static getSortedItemsByDateColumn(
+    dateColumnId: string,
+    items: ItemWithColumnValuesFragment[],
+  ): ItemWithColumnValuesFragment[] {
+    return items
+      .map<{ item: ItemWithColumnValuesFragment; dateColumnValue: Date | null }>((item) => {
+        try {
+          const dateColumnValue = item.column_values.find((value) => value.id === dateColumnId);
+          const parsedDateColumnValue = JSON.parse(dateColumnValue?.value);
+
+          return { item, dateColumnValue: new Date(parsedDateColumnValue.date) };
+        } catch {
+          return { item, dateColumnValue: null };
+        }
+      })
+      .filter(({ dateColumnValue }) => !!dateColumnValue)
+      .sort((itemA, itemB) => itemB.dateColumnValue.getTime() - itemA.dateColumnValue.getTime())
+      .map(({ item }) => item);
+  }
+
+  static isItemColumnValueDifferent(
+    item: ItemWithColumnValuesFragment,
+    columnId: string,
+    compareMethod: (value: any) => boolean,
+  ): boolean {
+    return !!item.column_values.find((columnValue) => {
+      try {
+        if (columnId === columnValue.id) {
+          return compareMethod(columnValue.value);
+        }
+      } catch {
+        return false;
+      }
+    });
   }
 }
