@@ -4,6 +4,7 @@ import { HttpStatusCode } from 'axios';
 import { ApiClient, ClientError } from '@mondaydotcomorg/api';
 import { Unauthorized } from 'http-errors';
 import { executionContext } from '@utils/execution-context.utils';
+import { UPDATED_MONDAY_API_VERSION } from '@services/monday.service';
 
 /**
  * Here we handle error relating to monday api, feel free to change it to your like
@@ -19,7 +20,7 @@ export const mondayApiErrorHandler = (err: any, req: Request, res: Response, nex
 };
 
 /**
- * Here we attach the monday api client to the request.
+ * Here we save the Monday API client in local Async Storage for a seamless usage experience with the Monday service.
  * Always use it after the monday auth middleware.
  */
 export const setMondayApiClient = (req: Request, res: Response, next: NextFunction) => {
@@ -33,7 +34,7 @@ export const setMondayApiClient = (req: Request, res: Response, next: NextFuncti
     {
       mondayApiClient: new ApiClient({
         token: shortLivedToken,
-        apiVersion: '2024-10',
+        apiVersion: UPDATED_MONDAY_API_VERSION,
       }),
     },
     () => next(),
