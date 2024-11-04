@@ -34,3 +34,11 @@ export const createItem = gql`
     }
   }
 `;
+
+export const getMe = gql`
+  query GetMe {
+    me {
+      id
+    }
+  }
+`;

@@ -3184,3 +3184,8 @@ export type CreateItemMutationVariables = Exact<{
 
 
 export type CreateItemMutation = { __typename?: 'Mutation', create_item?: { __typename?: 'Item', id: string } | null };
+
+export type GetMeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: string } | null };

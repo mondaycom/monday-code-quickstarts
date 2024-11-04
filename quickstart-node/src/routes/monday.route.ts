@@ -32,13 +32,11 @@ mondayRouter.post('/change-last-item-status', async (req: Request, res: Response
 });
 
 /**
- * This route throws error from the api on purpose to show how the mondayApiMiddleware handles it:
- * The monday api will throw graphql error -> the monday api error middleware will catch it ->
- * throws a bad request to the client and logs an error with appropriate message
+ * Simple route just for sanity test and see a simple usage of monday API SDK
  */
-mondayRouter.post('/error-handle-example', async (req: Request, res: Response) => {
-  await MondayService.createItem('99999999', 'foo');
-  res.status(200).send('If it got here, the function did not throw any errors for some reason');
+mondayRouter.post('/me', async (req: Request, res: Response) => {
+  const me = await MondayService.getMe();
+  res.status(200).json(me);
 });
 
 mondayRouter.use(mondayApiErrorHandler);

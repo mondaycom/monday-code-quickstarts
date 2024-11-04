@@ -3,9 +3,10 @@ import {
   CreateItemMutationVariables,
   GetItemsInGroupQuery,
   GetItemsInGroupQueryVariables,
+  GetMeQuery,
   ItemWithColumnValuesFragment,
 } from 'generated/graphql';
-import { createItem, getItemsInGroup } from 'queries.graphql';
+import { createItem, getItemsInGroup, getMe } from 'queries.graphql';
 import { getValueFromExecutionContext } from '@utils/execution-context.utils';
 import { NotFound } from 'http-errors';
 
@@ -82,6 +83,10 @@ export class MondayService {
     };
 
     return MondayService.getMondayApiClient(token).request(createItem, createItemVariables);
+  }
+
+  static async getMe(token?: string): Promise<GetMeQuery> {
+    return MondayService.getMondayApiClient(token).request(getMe);
   }
 
   private static getSortedItemsByDateColumn(
