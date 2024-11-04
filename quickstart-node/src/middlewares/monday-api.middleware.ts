@@ -7,7 +7,7 @@ import { executionContext } from '@utils/execution-context.utils';
 import { UPDATED_MONDAY_API_VERSION } from '@services/monday.service';
 
 /**
- * Here we handle error relating to monday api, feel free to change it to your like
+ * Here we handle error relating to monday api, feel free to change it to your liking
  */
 export const mondayApiErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
   // Check if the error we got is from the monday graphql api
