@@ -1,10 +1,12 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
-import { StorageService } from '@services/monday-code/storage.service';
 import authRouter from '@routes/auth.route';
 import errorHandler from '@middlewares/error.middleware';
 import cookieParser from 'cookie-parser';
-import { QueueService } from '@services/monday-code';
+import mondayRouter from '@routes/monday.route';
+import queueRouter from '@routes/queue';
+import mailRouter from '@routes/mail.route';
+import { HttpStatusCode } from 'axios';
 
 dotenv.config();
 
@@ -15,9 +17,11 @@ app.use(cookieParser());
 
 // Routes
 app.use('/auth', authRouter);
-
-app.get('/', async (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server ');
+app.use('/monday', mondayRouter);
+app.use('/queue', queueRouter);
+app.use('/mail', mailRouter);
+app.use('/', (req: Request, res: Response) => {
+  res.status(HttpStatusCode.Ok).send('Server is up and running');
 });
 
 // This middleware should always be the last middleware
