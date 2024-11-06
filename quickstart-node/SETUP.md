@@ -80,14 +80,14 @@ That's it! You have successfully created a recipe on Monday!
 ## Monday API Usage
 
 In this quickstart we also added examples of Monday API usage. In these examples you can see
-usage of update column, custom query and how to handle Monday API errors. If you want to read more about the Monday API
-SDK
-and how to use it properly,
-you can click
-[here](https://www.npmjs.com/package/@mondaydotcomorg/api). If you use typescript and want to generate types for your
-queries/mutations/fragments you can click [here](https://www.npmjs.com/package/@mondaydotcomorg/setup-api) and learn how
-to
-do it.
+usage of update column, custom query and how to handle Monday API errors.
+
+- If you want to read more about the Monday API SDK and how to use it properly, you can
+  click [here](https://www.npmjs.com/package/@mondaydotcomorg/api).
+- If you use typescript and want to generate types for your queries/mutations/fragments you can
+  click [here](https://www.npmjs.com/package/@mondaydotcomorg/setup-api) and learn how to do it.
+- If you want to know which queries and mutations you can run on the Monday API,
+  click [here](https://developer.monday.com/api-reference/reference/about-the-api-reference).
 
 ### Configure OAuth Permissions
 
