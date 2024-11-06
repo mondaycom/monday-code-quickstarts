@@ -77,9 +77,9 @@ That's it! You have successfully created a recipe on Monday!
 4. Test the recipe by changing the status of an item.
 5. Check the logs in the Monday Code console to see the recipe in action.
 
-## Monday API SDK Usage
+## Monday API Usage
 
-In this quickstart we also added examples of monday API SDK usage. In these examples you can see
+In this quickstart we also added examples of Monday API usage. In these examples you can see
 usage of update column, custom query and how to handle Monday API errors. If you want to read more about the Monday API
 SDK
 and how to use it properly,

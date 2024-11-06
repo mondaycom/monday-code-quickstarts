@@ -2,7 +2,7 @@
 
 This Node - express with typescript application is designed to showcase the practical use of monday code and monday api
 sdk by integrating various monday app functionalities. It's an essential resource for developers looking to leverage
-Monday Code and Monday API SDK features through NodeJS environment.
+Monday Code and Monday API features through NodeJS environment.
 
 ## Getting Started
 
@@ -64,11 +64,11 @@ This app showcases how to use various Monday app functionalities, including:
 
 **NOTE**: Storage feature does not work locally, you can only check it after you push your code to Monday Code
 
-### Monday API SDK Usage
+### Monday API Usage
 
-* Example of updating column value in an item
-* Example of a custom query with types generate
-* Example of monday api error handling
+* An example of updating column value in an item
+* An example of a custom query with generated types
+* An example of error handling with the Monday API
 
 ### Integration and Authentication
 
@@ -84,7 +84,7 @@ This app showcases how to use various Monday app functionalities, including:
 ### Error Handling
 
 * Example of global error handler middleware
-* Example of Monday API error handler middleware
+* Example of Monday API error handling middleware
 
 If you want to learn more about how to send appropriate error messages from your app to monday automations
 click [here](https://developer.monday.com/apps/docs/error-handling).
@@ -97,7 +97,7 @@ Follow the instructions listed in the [SETUP.md](SETUP.md) file
 
 ### NOTE:
 
-    This project is only a demonstration of how to use various Monday Code app and Monday API SDK functionalities.
+    This project is only a demonstration of how to use various Monday Code app and Monday API functionalities.
     It is not intended for production use without further modifications.
     Please ensure to review and update the code as necessary to fit your specific needs and requirements
     Remember to keep your OAuth credentials secure and do not expose them in your code or version control system. Use environment variables or other secure methods to handle sensitive data.
