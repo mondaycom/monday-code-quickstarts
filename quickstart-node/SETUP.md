@@ -84,8 +84,6 @@ usage of update column, custom query and how to handle monday Platform API error
 
 - If you want to read more about the monday Platform API SDK and how to use it properly, you can
   click [here](https://www.npmjs.com/package/@mondaydotcomorg/api).
-- If you use typescript and want to generate types for your queries/mutations/fragments you can
-  click [here](https://www.npmjs.com/package/@mondaydotcomorg/setup-api) and learn how to do it.
 - If you want to know which queries and mutations you can run on the monday Platform API,
   click [here](https://developer.monday.com/api-reference/reference/about-the-api-reference).
 
