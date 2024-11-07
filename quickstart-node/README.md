@@ -43,6 +43,9 @@ To run the application in development mode, use the following command in the pro
 npm run dev
 ```
 
+**NOTE**: This command also creates a tunnel using `monday-apps-cli`, if you only want to run your server run:
+`npm run server`.
+
 You can also start the application for production after you compiled the ts files using this command:
 
 ```bash
