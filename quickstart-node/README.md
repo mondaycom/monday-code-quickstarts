@@ -1,9 +1,9 @@
 # Monday-Code NodeJS Quickstart
 
 This Node - express with typescript application is designed to showcase the practical use of monday code and monday
-platform api
-sdk by integrating various monday app functionalities. It's an essential resource for developers looking to leverage
-and monday Platform API features through NodeJS environment.
+platform API SDK. It also includes some routes examples that you can use as part of an automation. You can use this app
+as an app
+feature, and edit it to your needs.
 
 ## Getting Started
 
