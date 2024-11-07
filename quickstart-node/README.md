@@ -66,6 +66,9 @@ This app showcases how to use various Monday app functionalities, including:
 * Using Monday apps Queue
 * Using Monday code Logger
 
+To learn more about monday code you can
+click [here](https://developer.monday.com/apps/docs/quickstart-guide-for-monday-code).
+
 **NOTE**: Storage feature does not work locally, you can only check it after you push your code to monday code.
 
 ### Monday Platform API Usage
