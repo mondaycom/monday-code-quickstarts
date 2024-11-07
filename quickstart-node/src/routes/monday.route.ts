@@ -32,7 +32,7 @@ mondayRouter.post('/change-last-item-status', async (req: Request, res: Response
 });
 
 /**
- * Simple route just for sanity test and see a simple usage of Monday API
+ * Simple route just for sanity test and see a simple usage of monday Platform API
  */
 mondayRouter.post('/me', async (req: Request, res: Response) => {
   const me = await MondayService.getMe();

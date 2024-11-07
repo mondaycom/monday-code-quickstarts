@@ -25,7 +25,7 @@ To set up the app on Monday, follow these steps:
 1. Press `OAuth` in the `General` section of the left menu.
 2. Enter the `Redirect URLs` tab.
 3. Add the following URL: `https://<YOUR_URL>/auth/monday/callback` and **press save**.
-4. Don't forget to change the URL after deploying the app to Monday Code.
+4. Don't forget to change the URL after deploying the app to monday code.
 
 Congrats, you have successfully set up the app on Monday! 🎉
 
@@ -34,9 +34,9 @@ Congrats, you have successfully set up the app on Monday! 🎉
 1. Go to the `General` tab under monday code, click on `Connect monday code` and follow the instructions on the screen.
 2. Choose your integration Feature Under the `Feature` tab, create a new build and choose monday code as the deployment
    target.
-3. Reconfigure the OAuth redirect URL with the new URL provided by Monday Code.
+3. Reconfigure the OAuth redirect URL with the new URL provided by monday code.
 
-That's it! You have successfully deployed the app to Monday Code. 🚀
+That's it! You have successfully deployed the app to monday code. 🚀
 
 ### Setting up Environment Variables
 
@@ -75,18 +75,18 @@ That's it! You have successfully created a recipe on Monday!
 2. Choose the recipe you created in the previous step.
 3. Configure the recipe based on your requirements, in this case, you need to choose a status column.
 4. Test the recipe by changing the status of an item.
-5. Check the logs in the Monday Code console to see the recipe in action.
+5. Check the logs in the monday code console to see the recipe in action.
 
-## Monday API Usage
+## Monday Platform API Usage
 
-In this quickstart we also added examples of Monday API usage. In these examples you can see
-usage of update column, custom query and how to handle Monday API errors.
+In this quickstart we also added examples of monday Platform API usage. In these examples you can see
+usage of update column, custom query and how to handle monday Platform API errors.
 
-- If you want to read more about the Monday API SDK and how to use it properly, you can
+- If you want to read more about the monday Platform API SDK and how to use it properly, you can
   click [here](https://www.npmjs.com/package/@mondaydotcomorg/api).
 - If you use typescript and want to generate types for your queries/mutations/fragments you can
   click [here](https://www.npmjs.com/package/@mondaydotcomorg/setup-api) and learn how to do it.
-- If you want to know which queries and mutations you can run on the Monday API,
+- If you want to know which queries and mutations you can run on the monday Platform API,
   click [here](https://developer.monday.com/api-reference/reference/about-the-api-reference).
 
 ### Configure OAuth Permissions
@@ -96,7 +96,7 @@ In order for the app to read and set your board data, it will need permissions t
 1. Press `OAuth` in the `General` section of the left menu.
 2. Check the `boards:read` and `boards:write` boxes
 
-### Custom Actions with Monday API Usage
+### Custom Actions with Monday Platform API Usage
 
 In this example you will create an action that does this: when an item is created, it changes the last item (based on
 their date column) status to
@@ -134,7 +134,7 @@ input fields:
 
 Here the steps are also similar to this [section](#using-the-recipe), but you need choose input fields. Make sure you
 have at least one column of type status and one column of type date. Try to create an item and see if the last item
-status changes to what you chose. If it does, Congratulations! you created an action that uses Monday API
+status changes to what you chose. If it does, Congratulations! you created an action that uses monday Platform API
 successfully.
 
 ### Happy building! 🎉
