@@ -11,7 +11,7 @@ To set up the app on Monday, follow these steps:
 5. Create a new build and set the project's exposed URL in the "Base URL" field.
    You can use
    Monday's [tunneling service](https://developer.monday.com/apps/docs/command-line-interface-cli#mapps-tunnelcreate) to
-   expose your local server txo the internet.
+   expose your local server to the internet.
    This step is temporary and will be replaced with the URL of your app in monday code.
 
 ### Setting authorization URL
