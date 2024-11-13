@@ -27,14 +27,6 @@ cd quickstart-node
 npm i
 ```
 
-## Compiling Files
-
-If you want to compile the ts files to js files you can use the following command in the project directory:
-
-```bash
-npm run build
-```
-
 ## Generate GraphQL types
 
 To generate types for your GraphQL queries / mutations / fragments, you can write them in the `queries.graphql.ts`
@@ -58,6 +50,7 @@ npm run dev
 You can also start the application for production after you compiled the ts files using this command:
 
 ```bash
+npm run build
 npm run start
 ```
 
