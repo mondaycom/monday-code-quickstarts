@@ -7,12 +7,12 @@ import { executionContext } from '@utils/execution-context.utils';
 import { UPDATED_MONDAY_API_VERSION } from '@services/monday.service';
 
 /**
- * Here we handle error relating to monday api, feel free to change it to your liking
+ * Here we handle error relating to monday Platform API, feel free to change it to your liking
  */
 export const mondayApiErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
   // Check if the error we got is from the monday graphql api
   if (err instanceof ClientError) {
-    LoggerService.getInstance().error('Monday API error occurred', err);
+    LoggerService.getInstance().error('Monday Platform API error occurred', err);
     res.status(HttpStatusCode.BadRequest).send('An error occurred during the request to monday');
   } else {
     next(err);
@@ -20,7 +20,7 @@ export const mondayApiErrorHandler = (err: any, req: Request, res: Response, nex
 };
 
 /**
- * Here we save the Monday API client in local Async Storage for a seamless usage experience with the Monday service.
+ * Here we save the monday Platform API client in local Async Storage for a seamless usage experience with the Monday service.
  * Always use it after the monday auth middleware.
  */
 export const setMondayApiClient = (req: Request, res: Response, next: NextFunction) => {
