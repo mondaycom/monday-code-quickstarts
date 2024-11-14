@@ -14,6 +14,8 @@ To set up the app on Monday, follow these steps:
    expose your local server to the internet.
    This step is temporary and will be replaced with the URL of your app in monday code.
 
+**Note**: If your build uses your local server don't forget to set your `.env` file using the `.env.example` file.
+
 ### Setting authorization URL
 
 1. Under `Feature Details` in your integration feature scroll down to the `Authorization URL` section.
