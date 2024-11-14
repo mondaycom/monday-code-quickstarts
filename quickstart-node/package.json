@@ -7,8 +7,8 @@
     "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register dist/index.js",
     "dev": "npm run stop && concurrently \"npm run server\" \"npm run expose\"",
     "server": "nodemon",
-    "expose": "PORT=$(grep PORT .env | cut -d '=' -f2) && mapps tunnel:create -p ${PORT:-3000}",
-    "stop": "PORT=$(grep PORT .env | cut -d '=' -f2) && kill-port ${PORT:-3000}",
+    "expose": "mapps tunnel:create -p 3000",
+    "stop": "kill-port 3000",
     "fetch:schema": "bash fetch-schema.sh",
     "codegen": "graphql-codegen",
     "fetch:generate": "npm run fetch:schema && npm run codegen"
