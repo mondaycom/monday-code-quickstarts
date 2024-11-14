@@ -27,15 +27,6 @@ cd quickstart-node
 npm i
 ```
 
-## Generate GraphQL types
-
-To generate types for your GraphQL queries / mutations / fragments, you can write them in the `queries.graphql.ts`
-file and then run the following command:
-
-```bash
-npm run fetch:generate
-```
-
 ## Running the Application
 
 To run the application in development mode, use the following command in the project directory:
@@ -55,6 +46,15 @@ npm run start
 ```
 
 If you did not set a port environment variable, the application will start running at `http://0.0.0.0:3000`.
+
+## Generate GraphQL types (optional)
+
+To generate types for your GraphQL queries / mutations / fragments, you can write them in the `queries.graphql.ts`
+file and then run the following command:
+
+```bash
+npm run fetch:generate
+```
 
 ## Features
 
