@@ -21,7 +21,7 @@ app.use('/monday', mondayRouter);
 app.use('/', mondayQueueRouter);
 app.use('/mail', mailRouter);
 app.use('/', (req: Request, res: Response) => {
-  res.status(HttpStatusCode.Ok).send('Server is up and running');
+  res.status(HttpStatusCode.Ok).send('Hello world!');
 });
 
 // This middleware should always be the last middleware
