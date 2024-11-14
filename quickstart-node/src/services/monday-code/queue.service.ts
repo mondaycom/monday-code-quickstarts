@@ -43,7 +43,7 @@ export class QueueService implements MondayCodeQueueManager {
         const mailAddress = (await new StorageService(mondayAccessToken).get<string>('mailAddress'))?.value;
         const content = message.content;
         if (mailAddress && content) {
-          await MailService.getInstance().sendMail(mailAddress, content);
+          await MailService.sendMail(mailAddress, content);
         }
       }
     }
