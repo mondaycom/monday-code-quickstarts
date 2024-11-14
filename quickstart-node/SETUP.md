@@ -26,7 +26,7 @@ To set up the app on Monday, follow these steps:
 
 1. Press `OAuth` in the `General` section of the left menu.
 2. Enter the `Redirect URLs` tab.
-3. Add the following URL: `https://<YOUR_URL>/auth/monday/callback` and **press save**.
+3. Add the following URL: `https://<YOUR_TUNNEL_URL>/auth/monday/callback` and **press save**.
 4. Don't forget to change the URL after deploying the app to monday code.
 
 Congrats, you have successfully set up the app on Monday! 🎉
