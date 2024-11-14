@@ -4,7 +4,7 @@ import authRouter from '@routes/auth.route';
 import errorHandler from '@middlewares/error.middleware';
 import cookieParser from 'cookie-parser';
 import mondayRouter from '@routes/monday.route';
-import queueRouter from '@routes/queue';
+import mondayQueueRouter from '@routes/monday-queue';
 import mailRouter from '@routes/mail.route';
 import { HttpStatusCode } from 'axios';
 
@@ -18,7 +18,7 @@ app.use(cookieParser());
 // Routes
 app.use('/auth', authRouter);
 app.use('/monday', mondayRouter);
-app.use('/queue', queueRouter);
+app.use('/', mondayQueueRouter);
 app.use('/mail', mailRouter);
 app.use('/', (req: Request, res: Response) => {
   res.status(HttpStatusCode.Ok).send('Server is up and running');

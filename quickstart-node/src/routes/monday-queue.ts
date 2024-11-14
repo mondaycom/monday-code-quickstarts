@@ -6,13 +6,13 @@ import { StatusCodes } from 'http-status-codes';
 import { HttpStatusCode } from 'axios';
 import bodyParser from 'body-parser';
 
-const queueRouter = express.Router();
+const mondayQueueRouter = express.Router();
 
 /**
  * This route will receive the callback from our queue and process it,
  * Letting the queue wait instead of the user
  */
-queueRouter.post('/mndy-queue', bodyParser.json(), async (req: Request, res: Response) => {
+mondayQueueRouter.post('/mndy-queue', bodyParser.json(), async (req: Request, res: Response) => {
   const { secret } = req.query;
   // Validates that the request is triggered by monday code
   if (!(typeof secret === 'string') || !QueueService.getInstance().validateMessageSecret(secret)) {
@@ -31,4 +31,4 @@ queueRouter.post('/mndy-queue', bodyParser.json(), async (req: Request, res: Res
   }
 });
 
-export default queueRouter;
+export default mondayQueueRouter;
