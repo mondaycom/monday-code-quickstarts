@@ -1,0 +1,45 @@
+{
+  "ts-node": {
+    "require": [
+      "tsconfig-paths/register"
+    ],
+    "files": true
+  },
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es6",
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "dist",
+    "baseUrl": "src",
+    "paths": {
+      "@my-types/*": [
+        "types/*"
+      ],
+      "@errors/*": [
+        "errors/*"
+      ],
+      "@services/*": [
+        "services/*"
+      ],
+      "@routes/*": [
+        "routes/*"
+      ],
+      "@middlewares/*": [
+        "middlewares/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
+      "@shared/*": [
+        "shared/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
