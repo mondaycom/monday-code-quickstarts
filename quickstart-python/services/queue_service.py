@@ -14,7 +14,7 @@ class QueueService:
         This function will publish a message to our queue
         """
         publish_message_params = PublishMessageParams(message=json.dumps(message))
-        api_instance.publish_message(publish_message_params)
+        return api_instance.publish_message(publish_message_params)
 
     @staticmethod
     def parse_queue_message(message: dict) -> None:
@@ -29,4 +29,4 @@ class QueueService:
             monday_access_token = message.get('user_token')
             mail_address = StorageService(monday_access_token).get('mail_address')
             content = message.get('content')
-            MailService.send_mail(mail_address, content)  # Unimplemented function for example
+            MailService.send_mail(mail_address, content)

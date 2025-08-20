@@ -16,7 +16,7 @@ class LogsService:
         Writes a log message with the given level using the monday API.
         """
         write_log_request_body = WriteLogRequestBody(message=message, method=method, payload=payload)
-        api_instance.write_log(write_log_request_body)
+        return api_instance.write_log(write_log_request_body)
 
     @classmethod
     def __log(cls, message: str, method: LogMethods, payload: dict = None):

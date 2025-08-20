@@ -1,4 +1,5 @@
 import json
+import inspect
 from typing import Any, Dict, List, Union
 
 import monday_code
@@ -17,14 +18,21 @@ class SecureStorage:
     @with_monday_api(api_type, 'get_secure_storage')
     def get(key: str, api_instance: SecureStorageApi = None, default_value=None) -> JSONType:
         api_response = api_instance.get_secure_storage(str(key))
+
+        if inspect.iscoroutine(api_response):
+            async def extract_value():
+                result = await api_response
+                return result.value if result and result.value else default_value
+            return extract_value()
+
         return api_response.value if api_response and api_response.value else default_value
 
     @staticmethod
     @with_monday_api(api_type, 'put_secure_storage')
     def put(key: str, value: JSONType, api_instance: SecureStorageApi = None) -> None:
-        api_instance.put_secure_storage(str(key), monday_code.JsonDataContract(value=value))
+        return api_instance.put_secure_storage(str(key), monday_code.JsonDataContract(value=value))
 
     @staticmethod
     @with_monday_api(api_type, 'delete_secure_storage')
     def delete(key: str, api_instance: SecureStorageApi = None) -> None:
-        api_instance.delete_secure_storage(str(key))
+        return api_instance.delete_secure_storage(str(key))
