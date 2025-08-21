@@ -1,5 +1,4 @@
 from typing import Any, Dict, List, Union
-import inspect
 
 import monday_code
 from monday_code import StorageApi
@@ -17,23 +16,16 @@ class StorageService:
         self.monday_access_token = monday_access_token
 
     @with_monday_api(api_type, 'get_by_key_from_storage')
-    def get(self, key: str, api_instance: StorageApi = None, shared: bool = False, default_value=None) -> JSONType:
-        api_response = api_instance.get_by_key_from_storage(
+    async def get(self, key: str, api_instance: StorageApi = None, shared: bool = False, default_value=None) -> JSONType:
+        api_response = await api_instance.get_by_key_from_storage(
             str(key), x_monday_access_token=self.monday_access_token, shared=shared)
-
-        if inspect.iscoroutine(api_response):
-            async def extract_value():
-                result = await api_response
-                return result.value if result else default_value
-            return extract_value()
-
         return api_response.value if api_response else default_value
 
     @with_monday_api(api_type, 'upsert_by_key_from_storage')
-    def upsert(self, key: str, value: JSONType, previous_version: str = '', shared: bool = False, api_instance: StorageApi = None) -> None:
+    async def upsert(self, key: str, value: JSONType, previous_version: str = '', shared: bool = False, api_instance: StorageApi = None) -> None:
         data = monday_code.JsonDataContract(value=value)
-        return api_instance.upsert_by_key_from_storage(key=str(key), x_monday_access_token=self.monday_access_token, json_data_contract=data, shared=shared, previous_version=previous_version)
+        return await api_instance.upsert_by_key_from_storage(key=str(key), x_monday_access_token=self.monday_access_token, json_data_contract=data, shared=shared, previous_version=previous_version)
 
     @with_monday_api(api_type, 'delete_by_key_from_storage')
-    def delete(self, key: str, api_instance: StorageApi = None) -> None:
-        return api_instance.delete_by_key_from_storage(str(key), self.monday_access_token)
+    async def delete(self, key: str, api_instance: StorageApi = None) -> None:
+        return await api_instance.delete_by_key_from_storage(str(key), self.monday_access_token)

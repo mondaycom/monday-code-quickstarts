@@ -1,5 +1,4 @@
 from typing import Callable
-import asyncio
 import inspect
 
 import monday_code
@@ -32,23 +31,20 @@ def with_monday_api(api_type: APITypes, method_name: str, **options):
     """Decorator that provides monday's api_instance to the function it decorates"""
 
     def decorator(func: Callable):
-        def wrapper(*args, **kwargs):
-            async def run_sdk():
-                async with monday_code.ApiClient(mcode_configuration) as api_client:
-                    api_instance = api_instance_factory(api_type, api_client)
-                    try:
-                        result = func(*args, **kwargs, **options,
-                                      api_instance=api_instance)
-                        if inspect.iscoroutine(result):
-                            result = await result
-                        return result
-                    except NotFoundException:
-                        return None
-                    except (ApiException, RequestError) as e:
-                        raise MondayCodeAPIError(
-                            f"Exception when calling MondayApi->{method_name}: {e}", api_type)
-
-            return asyncio.run(run_sdk())
+        async def wrapper(*args, **kwargs):
+            async with monday_code.ApiClient(mcode_configuration) as api_client:
+                api_instance = api_instance_factory(api_type, api_client)
+                try:
+                    result = func(*args, **kwargs, **options,
+                                  api_instance=api_instance)
+                    if inspect.iscoroutine(result):
+                        result = await result
+                    return result
+                except NotFoundException:
+                    return None
+                except (ApiException, RequestError) as e:
+                    raise MondayCodeAPIError(
+                        f"Exception when calling MondayApi->{method_name}: {e}", api_type)
 
         return wrapper
 
