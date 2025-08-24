@@ -31,6 +31,17 @@ class LogsService:
                 f"Unable to log the following message: {message}. Additional error: {e}")
 
     @classmethod
+    def __log_sync(cls, message: str, method: LogMethods, payload: dict = None):
+        """
+        Synchronous logging with fallback to print. Used for error handlers.
+        """
+        try:
+            import asyncio
+            asyncio.run(cls.__log(message, method, payload))
+        except Exception:
+            print(f'[{method.value.upper()}] {message}')
+
+    @classmethod
     async def info(cls, message: str, payload: dict = None):
         return await cls.__log(message, LogMethods.INFO, payload)
 
@@ -45,3 +56,8 @@ class LogsService:
     @classmethod
     async def warning(cls, message: str, payload: dict = None):
         return await cls.__log(message, LogMethods.WARN, payload)
+
+    @classmethod
+    def error_sync(cls, message: str, payload: dict = None):
+        """Synchronous error logging for use in error handlers"""
+        return cls.__log_sync(message, LogMethods.ERROR, payload)

@@ -19,7 +19,7 @@ app.register_error_handler(BaseError, handle_base_error)
 
 @app.route("/")
 @app.route("/health")
-async def health_check():
+def health_check():
     return jsonify({"message": "Healthy"}), 200
 
 

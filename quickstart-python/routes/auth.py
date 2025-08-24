@@ -44,9 +44,9 @@ async def authorize():
     # Create response with cookies
     response = make_response(redirect(redirect_url))
     response.set_cookie('user_id', user_id)
+    # Save the state in a cookie for later validation, can be stored in the server as well
     response.set_cookie('state', state)
 
-    await LogsService.info("OAuth flow started", {'user_id': user_id})
     return response
 
 

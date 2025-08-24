@@ -1,17 +1,13 @@
-import asyncio
 from flask import jsonify
 from werkzeug.exceptions import HTTPException
 
 from errors import BaseError, InternalServerError
+from services import LogsService
 
 
 def _log_error(message: str):
-    """Simple async logging with fallback to print"""
-    try:
-        from services import LogsService
-        asyncio.run(LogsService.error(message))
-    except Exception:
-        print(f'[Error] {message}')
+    """Simple error logging with fallback to print"""
+    LogsService.error_sync(message)
 
 
 def handle_general_http_exception(exception: HTTPException):
