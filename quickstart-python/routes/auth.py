@@ -29,10 +29,11 @@ async def authorize():
     # Store back_to_url for later use
     await SecureStorage.put(user_id, {'back_to_url': back_to_url})
 
-    # Generate a random state for CSRF protection
+    # The state parameter is used for CSRF protection. It's a random string sent to the server and returned back.
+    # The client should only trust the response if the returned state matches the sent state.
     state = secrets.token_urlsafe(16)
 
-    # Get OAuth configuration
+    # For developing Draft versions, include the app_version_id parameter with the draft version's ID
     client_id = await EnvironmentVariablesService.get_environment_variable(
         EnvironmentKeys.MONDAY_OAUTH_CLIENT_ID)
     oauth_base_path = await EnvironmentVariablesService.get_environment_variable(
