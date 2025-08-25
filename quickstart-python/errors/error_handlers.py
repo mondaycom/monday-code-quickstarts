@@ -5,21 +5,16 @@ from errors import BaseError, InternalServerError
 from services import LogsService
 
 
-def handle_general_http_exception(exception: HTTPException):
-    LogsService.error(f'Error: {exception}')
-    response = jsonify({
-        'error': 'HTTPException',
-        'message': str(exception)
-    })
+async def handle_general_http_exception(exception: HTTPException):
+    await LogsService.error(f'HTTPException: {exception}')
+    response = jsonify({'error': 'HTTPException', 'message': str(exception)})
     response.status_code = exception.code
     return response
 
 
-def handle_internal_error(exception: InternalServerError):
-    LogsService.error(f'Error: {exception}')
-    response = jsonify({
-        'error': 'Error in processing request',
-    })
+async def handle_internal_error(exception: InternalServerError):
+    await LogsService.error(f'InternalServerError: {exception}')
+    response = jsonify({'error': 'Error in processing request'})
     response.status_code = exception.status_code
     return response
 

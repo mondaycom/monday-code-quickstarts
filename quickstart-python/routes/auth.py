@@ -6,14 +6,14 @@ from flask import request, Blueprint, redirect, make_response
 from consts import EnvironmentKeys
 from errors import GenericBadRequestError
 from middlewares import monday_request_auth
-from services import SecureStorage, JWTService, EnvironmentVariablesService
+from services import SecureStorage, JWTService, EnvironmentVariablesService, LogsService
 
 auth_bp = Blueprint('auth', __name__)
 
 
 @auth_bp.route('/', methods=['GET'])
 @monday_request_auth
-def authorize():
+async def authorize():
     """
     Redirects the user to the monday.com OAuth2 authorization page.
     First stage of the OAuth flow, Invoked when the user clicks on `Use template` for instance
@@ -21,20 +21,28 @@ def authorize():
     user_id = str(request.session.get('userId'))
     back_to_url = request.session.get('backToUrl')
 
-    connection = SecureStorage.get(user_id)
+    # Check for existing connection
+    connection = await SecureStorage.get(user_id)
     if connection and connection.get('monday_token'):
         return redirect(back_to_url)
 
-    SecureStorage.put(user_id, {'back_to_url': back_to_url})
+    # Store back_to_url for later use
+    await SecureStorage.put(user_id, {'back_to_url': back_to_url})
 
     # The state parameter is used for CSRF protection. It's a random string sent to the server and returned back.
     # The client should only trust the response if the returned state matches the sent state.
-    state = secrets.token_urlsafe(16)  # Generate a random state for CSRF protection
+    state = secrets.token_urlsafe(16)
 
     # For developing Draft versions, include the app_version_id parameter with the draft version's ID
-    params = {'client_id': EnvironmentVariablesService.get_environment_variable(EnvironmentKeys.MONDAY_OAUTH_CLIENT_ID), 'state': state}
-    redirect_url = f"{EnvironmentVariablesService.get_environment_variable(EnvironmentKeys.MONDAY_OAUTH_BASE_PATH)}?{urlencode(params)}"
+    client_id = await EnvironmentVariablesService.get_environment_variable(
+        EnvironmentKeys.MONDAY_OAUTH_CLIENT_ID)
+    oauth_base_path = await EnvironmentVariablesService.get_environment_variable(
+        EnvironmentKeys.MONDAY_OAUTH_BASE_PATH)
 
+    params = {'client_id': client_id, 'state': state}
+    redirect_url = f"{oauth_base_path}?{urlencode(params)}"
+
+    # Create response with cookies
     response = make_response(redirect(redirect_url))
     response.set_cookie('user_id', user_id)
     # Save the state in a cookie for later validation, can be stored in the server as well
@@ -44,7 +52,7 @@ def authorize():
 
 
 @auth_bp.route('/monday/callback', methods=['GET'])
-def monday_callback():
+async def monday_callback():
     """
     Callback URL for the OAuth2 flow.
     Saves the monday.com token in the storage for later access.
@@ -54,10 +62,10 @@ def monday_callback():
 
     validate_state()
 
-    monday_token = JWTService.get_monday_token(code)
+    monday_token = await JWTService.get_monday_token(code)
 
-    back_to_url = SecureStorage.get(user_id).get('back_to_url')
-    SecureStorage.put(user_id, {'monday_token': monday_token})
+    back_to_url = (await SecureStorage.get(user_id)).get('back_to_url')
+    await SecureStorage.put(user_id, {'monday_token': monday_token})
     return redirect(back_to_url)
 
 

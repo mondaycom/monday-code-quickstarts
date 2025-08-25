@@ -9,7 +9,7 @@ mail_bp = Blueprint('mail', __name__)
 
 @mail_bp.route('/send', methods=['POST'])
 @monday_request_auth
-def send_mail():
+async def send_mail():
     """
     Example of a route that receives a POST request and calls the Queue Service to handle the process in the background.
     """
@@ -21,11 +21,12 @@ def send_mail():
     content = f"Some trigger just ran! check the board - {board_id}"
     address = "admin.mail@example.com"
 
-    monday_token = SecureStorage.get(user_id, default_value={}).get('monday_token', {}).get('access_token', None)
+    monday_token = (await SecureStorage.get(user_id, default_value={})).get('monday_token', {}).get('access_token', None)
     if not monday_token:
         raise InternalServerError('monday_token not found')
     # Simulate mail address already saved in the storage, only for StorageService usage example
-    StorageService(monday_token).upsert('mail_address', address)
+    storage_service = StorageService(monday_token)
+    await storage_service.upsert('mail_address', address)
 
-    QueueService.publish_message({'method': 'send_mail', 'content': content, 'user_token': monday_token})
+    await QueueService.publish_message({'method': 'send_mail', 'content': content, 'user_token': monday_token})
     return 'Received', 200
