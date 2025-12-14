@@ -25,7 +25,7 @@ else:
     env.read_env(env_file)
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY', default=None)
@@ -86,9 +86,9 @@ WSGI_APPLICATION = 'djangocloudrun.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv('DB_ENGINE','django.db.backends.postgresql_psycopg2'),
+        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.postgresql_psycopg2'),
         'HOST': env('DB_HOST'),
-        'NAME': env('DB_NAME'),                   
+        'NAME': env('DB_NAME'),
         'USER': env('DB_USER'),
         'PASSWORD': env('DB_PASSWORD'),
         'PORT': os.getenv('DB_PORT', '5432'),
