@@ -14,6 +14,8 @@ const app: Express = express();
 const port = process.env.PORT || 3000;
 
 app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/auth', authRouter);
