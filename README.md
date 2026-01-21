@@ -4,7 +4,7 @@ This repo contains a bare bones structure for the server technologies that are s
 
 ## How to
 
-1. First, you'll need to create an app on monday.com, see here: https://developer.monday.com/apps/docs/manage
+1. First, you'll need to create an app on monday.com, see here: [https://developer.monday.com/apps/docs/manage](https://developer.monday.com/apps/docs/intro)
 2. Then, inside the developer center within your app page go to the "hosting" tab and click on the "monday code" section
 3. Accept terms and condition, and you will be able to connect your app to monday code
 4. You will need to install monday's apps CLI. To do so:
