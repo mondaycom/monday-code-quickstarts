@@ -14,7 +14,7 @@ export class StorageService implements MondayCodeStorageManager {
 
   constructor(token: string) {
     if (!token) {
-      throw new Unauthorized('Missing access token, can not access monday code storage');
+      throw new Unauthorized('Missing access token, cannot access monday code storage');
     }
 
     this.mondayCodeStorageManager = new Storage(token);

@@ -16,7 +16,7 @@ async def send_mail():
     user_id = request.session.get('userId')
     payload = request.get_json().get('payload')
     board_id = payload.get('inputFields').get('boardId', 'Example Board ID')
-    # In real world scenarios, the relevant content and address can be extracted a graphQL query to monday's API
+    # In real world scenarios, the relevant content and address can be extracted via a graphQL query to monday's API
     # using the board_id and other input fields set in the workflow blocks in Monday developer center
     content = f"Some trigger just ran! check the board - {board_id}"
     address = "admin.mail@example.com"
