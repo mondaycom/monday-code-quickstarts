@@ -15,7 +15,7 @@ mailRouter.post('/send', mondayRequestAuth, async (req: Request, res: Response) 
     throw new BadRequest('User ID not found');
   }
 
-  // In real world scenarios, the relevant content and address can be extracted a graphQL query to monday's API
+  // In real world scenarios, the relevant content and address can be extracted via a graphQL query to monday's API
   // using the boardId and other input fields set in the workflow blocks in Monday developer center
   const boardId = payload?.inputFields?.boardId || 'Example Board ID';
   const content = `Some trigger just ran! check the board - ${boardId}`;
